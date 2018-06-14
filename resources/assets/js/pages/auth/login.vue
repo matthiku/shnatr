@@ -2,6 +2,33 @@
   <div class="row">
     <div class="col-lg-8 m-auto">
       <card :title="$t('login')">
+
+        <!-- Oauth Provider Login Buttons -->
+        <span v-if="githubAuth || googleAuth || facebookAuth">
+          <div class="row">
+            <label class="col-md-3 col-form-label text-md-right">
+              {{ $t('login_with') }}:
+            </label>
+            <div class="col-md-7 d-none d-sm-inline">
+              <div class="d-flex justify-content-between">
+                <login-with-google/>
+                <login-with-github/>
+                <login-with-facebook/>
+              </div>
+            </div>
+            <div class="col-md-7 d-sm-none">
+              <div class="d-flex justify-content-between">
+                <login-with-google small="small"/>
+                <login-with-github small="small"/>
+                <login-with-facebook small="small"/>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            {{ $t('or_login_with_pw')}}
+          </div>
+        </span>
+        
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
           <!-- Email -->
           <div class="form-group row">
@@ -41,9 +68,6 @@
               <v-button :loading="form.busy">
                 {{ $t('login') }}
               </v-button>
-
-              <!-- GitHub Login Button -->
-              <login-with-github/>
             </div>
           </div>
         </form>
@@ -54,17 +78,27 @@
 
 <script>
 import Form from 'vform'
+import LoginWithGoogle from '~/components/LoginWithGoogle'
 import LoginWithGithub from '~/components/LoginWithGithub'
+import LoginWithFacebook from '~/components/LoginWithFacebook'
 
 export default {
   middleware: 'guest',
 
   components: {
-    LoginWithGithub
+    LoginWithGoogle,
+    LoginWithGithub,
+    LoginWithFacebook
   },
 
   metaInfo () {
     return { title: this.$t('login') }
+  },
+
+  computed: {
+    githubAuth: () => window.config.githubAuth,
+    facebookAuth: () => window.config.facebookAuth,
+    googleAuth: () => window.config.googleAuth,
   },
 
   data: () => ({

@@ -1,25 +1,25 @@
 <template>
-  <button v-if="githubAuth"
-      title="GitHub"
+  <button v-if="googleAuth"
+      title="Google"
       class="btn btn-dark"
       :class="[small ? 'btn-sm mb-1' : '']"
       type="button" @click="login"
     >
-    GitHub
-    <fa :icon="['fab', 'github']"/>
+    Google
+    <fa :icon="['fab', 'google']"/>
 
   </button>
 </template>
 
 <script>
 export default {
-  name: 'LoginWithGithub',
+  name: 'LoginWithGoogle',
 
   props: ['small'],
 
   computed: {
-    githubAuth: () => window.config.githubAuth,
-    url: () => `/api/oauth/github`
+    googleAuth: () => window.config.googleAuth,
+    url: () => `/api/oauth/google`
   },
 
   mounted () {
@@ -35,7 +35,7 @@ export default {
       const newWindow = openWindow('', this.$t('login'))
 
       const url = await this.$store.dispatch('auth/fetchOauthUrl', {
-        provider: 'github'
+        provider: 'google'
       })
 
       newWindow.location.href = url

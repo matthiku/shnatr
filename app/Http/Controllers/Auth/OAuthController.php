@@ -22,6 +22,8 @@ class OAuthController extends Controller
     {
         config([
             'services.github.redirect' => route('oauth.callback', 'github'),
+            'services.facebook.redirect' => route('oauth.callback', 'facebook'),
+            'services.google.redirect' => route('oauth.callback', 'google'),
         ]);
     }
 

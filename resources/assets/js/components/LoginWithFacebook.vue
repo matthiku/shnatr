@@ -1,25 +1,25 @@
 <template>
-  <button v-if="githubAuth"
-      title="GitHub"
+  <button v-if="facebookAuth"
+      title="Facebook"
       class="btn btn-dark"
       :class="[small ? 'btn-sm mb-1' : '']"
       type="button" @click="login"
     >
-    GitHub
-    <fa :icon="['fab', 'github']"/>
+    Facebook
+    <fa :icon="['fab', 'facebook']"/>
 
   </button>
 </template>
 
 <script>
 export default {
-  name: 'LoginWithGithub',
+  name: 'LoginWithFacebook',
 
   props: ['small'],
 
   computed: {
-    githubAuth: () => window.config.githubAuth,
-    url: () => `/api/oauth/github`
+    facebookAuth: () => window.config.facebookAuth,
+    url: () => `/api/oauth/facebook`
   },
 
   mounted () {
@@ -35,7 +35,7 @@ export default {
       const newWindow = openWindow('', this.$t('login'))
 
       const url = await this.$store.dispatch('auth/fetchOauthUrl', {
-        provider: 'github'
+        provider: 'facebook'
       })
 
       newWindow.location.href = url

@@ -9,11 +9,11 @@ import {
 } from '@fortawesome/fontawesome-free-solid/shakable.es'
 
 import {
-  faGithub
+  faGithub, faFacebook, faGoogle
 } from '@fortawesome/fontawesome-free-brands/shakable.es'
 
 fontawesome.library.add(
-  faUser, faLock, faSignOutAlt, faCog, faGithub
+  faUser, faLock, faSignOutAlt, faCog, faGithub, faFacebook, faGoogle
 )
 
 Vue.component('fa', FontAwesomeIcon)
