@@ -11,6 +11,8 @@ mix
   .sourceMaps()
   .disableNotifications()
 
+  .copy('resources/assets/manifest.json', 'public')
+
 if (mix.inProduction()) {
   mix.version()
 
@@ -33,9 +35,14 @@ if (mix.inProduction()) {
   ])
 }
 
+const {InjectManifest} = require('workbox-webpack-plugin')
+
 mix.webpackConfig({
   plugins: [
     // new BundleAnalyzerPlugin()
+    new InjectManifest({
+      swSrc: './resources/assets/js/sw.js'
+    })
   ],
   resolve: {
     extensions: ['.js', '.json', '.vue'],
