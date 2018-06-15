@@ -16,3 +16,16 @@ new Vue({
   router,
   ...App
 })
+
+// Try to enable Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').then(function (registration) {
+      // Registration was successful
+      window.console.log('ServiceWorker registration successful with scope: ', registration.scope)
+    }, function (err) {
+      // registration failed :(
+      window.console.log('ServiceWorker registration failed: ', err)
+    })
+  })
+}
