@@ -1,12 +1,34 @@
 <?php
+/**
+ * USER model
+ * 
+ * PHP version 7
+ * 
+ * @category Eloquent_Model
+ * @package  Shnatr
+ * @author   Matthias Kuhs <matthiku@yahoo.com>
+ * @license  MIT http://mit.org
+ * @link     http://github.org/matthiku/shnatr
+ */
 
 namespace App;
 
+use App\Notifications\VerifyEmail;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 
+/**
+ * Describes the USER Model
+ * 
+ * @category  Model
+ * @package   Shnatr
+ * @author    Matthias Kuhs <matthiku@yahoo.com>
+ * @copyright 2018 Matthias Kuhs
+ * @license   MIT http://mit.org
+ * @link      http://github.org/matthiku/shnatr
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
@@ -17,7 +39,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'verifyToken'
     ];
 
     /**
@@ -48,6 +70,7 @@ class User extends Authenticatable implements JWTSubject
         return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'.jpg?s=200&d=mm';
     }
 
+
     /**
      * Get the oauth providers.
      *
@@ -58,10 +81,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(OAuthProvider::class);
     }
 
+
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param string $token Token as provided by the verification email
+     *
      * @return void
      */
     public function sendPasswordResetNotification($token)
@@ -69,7 +94,10 @@ class User extends Authenticatable implements JWTSubject
         $this->notify(new ResetPasswordNotification($token));
     }
 
+
     /**
+     * Get JWT identifier
+     *
      * @return int
      */
     public function getJWTIdentifier()
@@ -78,10 +106,39 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Get JWT custom claims
+     *
      * @return array
      */
     public function getJWTCustomClaims()
     {
         return [];
     }
+
+
+    /**
+     * Returns true if the user's email has been verified
+     * 
+     * (during registration, a random token is generated.
+     * This token will be removed after the user clicked on the link
+     * in the Email Address Verification notification.)
+     * 
+     * @return bool user is verified
+     */
+    public function isVerified()
+    {
+        return $this->verifyToken === null;
+    }
+
+
+    /**
+     * Send email address verification email
+     * 
+     * @return void
+     */
+    public function sendVerificationEmail()
+    {
+        $this->notify(new VerifyEmail($this));
+    }
+
 }

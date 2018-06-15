@@ -31,5 +31,8 @@
   "new_password": "New Password",
   "login_with": "Login with",
   "register_with": "Register with",
-  "or_login_with_pw": "Or log in with password:"
+  "or_login_with_pw": "Or log in with password:",
+  "account_not_verified": "Your email address still has to be verified",
+  "check_email": "Please check your email for the confirmation link",
+  "send_confirmation_link": "Send Email Again"
 }

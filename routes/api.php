@@ -22,6 +22,13 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+
+
+    // send email address verification link again
+    Route::get(
+        'sendverifyemail', 'Auth\VerifyController@sendVerifyEmail'
+    );
+
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

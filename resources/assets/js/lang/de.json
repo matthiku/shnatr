@@ -31,5 +31,8 @@
   "new_password": "Neues Kennwort",
   "login_with": "Anmelden mit",
   "or_login_with_pw": "Oder anmelden mit Kennwort:",
-  "register_with": "Registrieren mit"
+  "register_with": "Registrieren mit",
+  "account_not_verified": "Deine Email-Adresse muss aber noch bestätigt werden",
+  "check_email": "Eine Email mit dem Bestätigungs-Link wurde dir zugesandt.",
+  "send_confirmation_link": "Email erneut senden"
 }

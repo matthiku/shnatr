@@ -5,6 +5,7 @@ import * as types from '../mutation-types'
 // state
 export const state = {
   user: null,
+  verifyEmailSent: false,
   token: Cookies.get('token')
 }
 
@@ -29,6 +30,14 @@ export const mutations = {
   [types.FETCH_USER_FAILURE] (state) {
     state.token = null
     Cookies.remove('token')
+  },
+
+  [types.SEND_VERIFY_EMAIL_SUCCESS] (state, { user }) {
+    state.verifyEmailSent = true
+  },
+
+  [types.SEND_VERIFY_EMAIL_FAILURE] (state) {
+    state.verifyEmailSent = false
   },
 
   [types.LOGOUT] (state) {
@@ -56,6 +65,17 @@ export const actions = {
       commit(types.FETCH_USER_SUCCESS, { user: data })
     } catch (e) {
       commit(types.FETCH_USER_FAILURE)
+    }
+  },
+
+  async sendVerifyEmail ({ commit }) {
+    try {
+      const { data } = await axios.get('/api/sendverifyemail')
+      console.log(data)
+      commit(types.SEND_VERIFY_EMAIL_SUCCESS, { user: data })
+    } catch (e) {
+      console.log(e)
+      commit(types.SEND_VERIFY_EMAIL_FAILURE)
     }
   },
 

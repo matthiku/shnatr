@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.c9e69046a9d46d83a3591ce167c06df2.js", "https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
+importScripts("/precache-manifest.045c42f8c94c65438a117e49bc764ecc.js", "https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 
 /* global workbox */
 /* eslint no-undef: "error" */
@@ -13,16 +13,16 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
 
 // fonts etc should be cached and fetched from cache first, then validated from the network
 workbox.routing.registerRoute(
-  /cdn\.polyfill\.io.*$/,
+  /.*cdn\.polyfill\.io.*$/,
   workbox.strategies.staleWhileRevalidate({
-    cacheName: 'google-fonts'
+    cacheName: 'staleWithRevalid'
   })
 )
 
-// third-party images (avatars)
+// third-party images (e.g. avatars)
 // see https://developers.google.com/web/tools/workbox/modules/workbox-cacheable-response
 workbox.routing.registerRoute(
-  /\.(?:png|jpg|jpeg|svg)$/,
+  new RegExp('^https://www.gravatar.com/avatar/'),
   workbox.strategies.cacheFirst({
     cacheName: 'image-cache',
     plugins: [
@@ -35,9 +35,17 @@ workbox.routing.registerRoute(
     ]
   })
 )
+workbox.routing.registerRoute(
+  /.*\.(?:png|jpg|jpeg|svg|gif)/g,
+  workbox.strategies.CacheFirst({
+    cacheName: 'image-cache'
+  })
+)
 
 /**
- * dynamic caching of main pages
+ * Dynamic caching of the Main Pages
+ *
+ * try network first, then cache
  */
 const mainPaths = [
   '/',
@@ -61,6 +69,16 @@ workbox.routing.registerRoute(
   '/favicon.ico',
   workbox.strategies.cacheFirst({
     cacheName: 'semi-static'
+  })
+)
+
+/**
+ * API GET requests cached with networkFirst
+ */
+workbox.routing.registerRoute(
+  new RegExp('/api/*'),
+  workbox.strategies.networkFirst({
+    cacheName: 'api-get-requests'
   })
 )
 
