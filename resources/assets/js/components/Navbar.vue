@@ -81,13 +81,8 @@ export default {
     deferredPrompt: 'shared/deferredPrompt'
   }),
 
-  mounted () {
-    console.log('showing prompt button?', this.deferredPrompt)
-  },
-
   watch: {
     deferredPrompt (val) {
-      console.log('showing prompt button?', val)
       if (val) {
         this.showInstallPrompt = true
       }
@@ -103,7 +98,6 @@ export default {
       this.$router.push({ name: 'login' })
     },
     installApp () {
-      console.log(this.deferredPrompt)
       if (this.deferredPrompt) {
         // hide our user interface that shows our A2HS button
         this.showInstallPrompt = false
