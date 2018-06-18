@@ -24,12 +24,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import swal from 'sweetalert2'
 
 export default {
   middleware: 'auth',
 
   computed: mapGetters({
-    user: 'auth/user'
+    user: 'auth/user',
+    verifyEmailSent: 'auth/verifyEmailSent'
   }),
 
   metaInfo () {
@@ -37,8 +39,16 @@ export default {
   },
 
   methods: {
-    sendEmail () {
-      this.$store.dispatch('auth/sendVerifyEmail')
+    async sendEmail () {
+      await this.$store.dispatch('auth/sendVerifyEmail')
+
+      if (this.verifyEmailSent) {
+        swal(
+          'Email sent!',
+          'A new verification email was sent to ' + this.user.email,
+          'success'
+        )
+      }
     }
   }
 }

@@ -38,6 +38,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.1.5",
     "laravel-mix": "^2.1.11",
+    "vue-loader": "^15.2.4",
     "vue-template-compiler": "^2.5.16",
     "webpack-bundle-analyzer": "^2.11.2",
     "webpack-cli": "^3.0.8",
