@@ -12,6 +12,8 @@ mix
   .disableNotifications()
 
   .copy('resources/assets/manifest.json', 'public')
+  .copy('resources/assets/favicon.ico', 'public')
+  .copyDirectory('resources/assets/static', 'public/static')
 
 if (mix.inProduction()) {
   mix.version()
@@ -36,13 +38,18 @@ if (mix.inProduction()) {
 }
 
 const {InjectManifest} = require('workbox-webpack-plugin')
+// https://github.com/johnagan/clean-webpack-plugin
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 mix.webpackConfig({
   plugins: [
     // new BundleAnalyzerPlugin()
     new InjectManifest({
       swSrc: './resources/assets/js/sw.js'
-    })
+    }),
+    new CleanWebpackPlugin(['public'], {exclude: ['.htaccess', 'index.php', 'robots.txt']}),
+    new VueLoaderPlugin()
   ],
   resolve: {
     extensions: ['.js', '.json', '.vue'],

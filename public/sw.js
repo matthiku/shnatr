@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.045c42f8c94c65438a117e49bc764ecc.js", "https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
+importScripts("/precache-manifest.3619dda0a9061efe36709f6c6fffa8d8.js", "https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 
 /* global workbox */
 /* eslint no-undef: "error" */
@@ -35,12 +35,12 @@ workbox.routing.registerRoute(
     ]
   })
 )
-workbox.routing.registerRoute(
-  /.*\.(?:png|jpg|jpeg|svg|gif)/g,
-  workbox.strategies.CacheFirst({
-    cacheName: 'image-cache'
-  })
-)
+// workbox.routing.registerRoute(
+//   /.*\.(?:png|jpg|jpeg|svg|gif)/g,
+//   workbox.strategies.CacheFirst({
+//     cacheName: 'image-cache'
+//   })
+// )
 
 /**
  * Dynamic caching of the Main Pages
@@ -55,19 +55,12 @@ const mainPaths = [
 ]
 const mainURLs = ({url, event}) => {
   // Return true if the route should match
-  console.log(url.pathname)
   if (mainPaths.indexOf(url.pathname) > -1) return true
   return false
 }
 workbox.routing.registerRoute(
   mainURLs,
   workbox.strategies.networkFirst({
-    cacheName: 'semi-static'
-  })
-)
-workbox.routing.registerRoute(
-  '/favicon.ico',
-  workbox.strategies.cacheFirst({
     cacheName: 'semi-static'
   })
 )

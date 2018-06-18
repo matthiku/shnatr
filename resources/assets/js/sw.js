@@ -33,12 +33,12 @@ workbox.routing.registerRoute(
     ]
   })
 )
-workbox.routing.registerRoute(
-  /.*\.(?:png|jpg|jpeg|svg|gif)/g,
-  workbox.strategies.CacheFirst({
-    cacheName: 'image-cache'
-  })
-)
+// workbox.routing.registerRoute(
+//   /.*\.(?:png|jpg|jpeg|svg|gif)/g,
+//   workbox.strategies.CacheFirst({
+//     cacheName: 'image-cache'
+//   })
+// )
 
 /**
  * Dynamic caching of the Main Pages
@@ -53,19 +53,12 @@ const mainPaths = [
 ]
 const mainURLs = ({url, event}) => {
   // Return true if the route should match
-  console.log(url.pathname)
   if (mainPaths.indexOf(url.pathname) > -1) return true
   return false
 }
 workbox.routing.registerRoute(
   mainURLs,
   workbox.strategies.networkFirst({
-    cacheName: 'semi-static'
-  })
-)
-workbox.routing.registerRoute(
-  '/favicon.ico',
-  workbox.strategies.cacheFirst({
     cacheName: 'semi-static'
   })
 )
