@@ -34,5 +34,6 @@
   "or_login_with_pw": "Or log in with password:",
   "account_not_verified": "Your email address still has to be verified",
   "check_email": "Please check your email for the confirmation link",
-  "send_confirmation_link": "Send Email Again"
+  "send_confirmation_link": "Send Email Again",
+  "install_app": "Install App"
 }

@@ -31,6 +31,11 @@
                 {{ $t('settings') }}
               </router-link>
 
+              <a href="#" class="dropdown-item pl-3" @click.prevent="installApp" v-show="showInstallPrompt">
+                <fa icon="mobile-alt" fixed-width/>
+                {{ $t('install_app') }}
+              </a>
+
               <div class="dropdown-divider"/>
               <a href="#" class="dropdown-item pl-3" @click.prevent="logout">
                 <fa icon="sign-out-alt" fixed-width/>
@@ -67,12 +72,27 @@ export default {
   },
 
   data: () => ({
-    appName: window.config.appName
+    appName: window.config.appName,
+    showInstallPrompt: false
   }),
 
   computed: mapGetters({
-    user: 'auth/user'
+    user: 'auth/user',
+    deferredPrompt: 'shared/deferredPrompt'
   }),
+
+  mounted () {
+    console.log('showing prompt button?', this.deferredPrompt)
+  },
+
+  watch: {
+    deferredPrompt (val) {
+      console.log('showing prompt button?', val)
+      if (val) {
+        this.showInstallPrompt = true
+      }
+    }
+  },
 
   methods: {
     async logout () {
@@ -81,6 +101,25 @@ export default {
 
       // Redirect to login.
       this.$router.push({ name: 'login' })
+    },
+    installApp () {
+      console.log(this.deferredPrompt)
+      if (this.deferredPrompt) {
+        // hide our user interface that shows our A2HS button
+        this.showInstallPrompt = false
+        // Show the install prompt
+        this.deferredPrompt.prompt()
+        // Wait for the user to respond to the prompt
+        this.deferredPrompt.userChoice
+          .then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the A2HS prompt')
+            } else {
+              console.log('User dismissed the A2HS prompt')
+            }
+            this.$store.commit('shared/setDeferredPrompt', null)
+          })
+      }
     }
   }
 }
@@ -91,5 +130,9 @@ export default {
   width: 2rem;
   height: 2rem;
   margin: -.375rem 0;
+}
+#install-app-item {
+  display: none;
+  cursor: pointer;
 }
 </style>

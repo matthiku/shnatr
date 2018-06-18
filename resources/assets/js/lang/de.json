@@ -34,5 +34,6 @@
   "register_with": "Registrieren mit",
   "account_not_verified": "Deine Email-Adresse muss aber noch bestätigt werden",
   "check_email": "Eine Email mit dem Bestätigungs-Link wurde dir zugesandt.",
-  "send_confirmation_link": "Email erneut senden"
+  "send_confirmation_link": "Email erneut senden",
+  "install_app": "App Installieren"
 }

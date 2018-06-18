@@ -29,3 +29,14 @@ if ('serviceWorker' in navigator) {
     })
   })
 }
+
+// Listen to the "Install to Home Screen" event
+window.addEventListener('beforeinstallprompt', (event) => {
+  console.log('beforeinstallprompt fired!')
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  event.preventDefault()
+  // Stash the event so it can be triggered later.
+  store.commit('shared/setDeferredPrompt', event)
+  console.log(event)
+  return false
+})
