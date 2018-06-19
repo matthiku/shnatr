@@ -46,8 +46,10 @@
                 {{ $t('register') }}
               </v-button>
 
-              <!-- GitHub Register Button -->
+              <!-- Socialite Register Buttons -->
               <login-with-github/>
+              <login-with-google/>
+              <login-with-facebook/>
             </div>
           </div>
         </form>
@@ -59,11 +61,15 @@
 <script>
 import Form from 'vform'
 import LoginWithGithub from '~/components/LoginWithGithub'
+import LoginWithGoogle from '~/components/LoginWithGoogle'
+import LoginWithFacebook from '~/components/LoginWithFacebook'
 
 export default {
   middleware: 'guest',
 
   components: {
+    LoginWithFacebook,
+    LoginWithGoogle,
     LoginWithGithub
   },
 

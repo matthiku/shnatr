@@ -12,6 +12,7 @@ export const state = {
 // getters
 export const getters = {
   user: state => state.user,
+  verifyEmailSent: state => state.verifyEmailSent,
   token: state => state.token,
   check: state => state.user !== null
 }
@@ -74,8 +75,8 @@ export const actions = {
       console.log(data)
       commit(types.SEND_VERIFY_EMAIL_SUCCESS, { user: data })
     } catch (e) {
-      console.log(e)
       commit(types.SEND_VERIFY_EMAIL_FAILURE)
+      console.log(e)
     }
   },
 
