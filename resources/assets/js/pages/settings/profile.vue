@@ -35,6 +35,18 @@
             {{ $t('update') }}</v-button>
         </div>
       </div>
+
+      <!-- Photo -->
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label d-none d-md-inline text-md-right">{{ $t('photo') }}</label>
+        <div class="d-flex pl-3">
+          <img :src="form.photo_url" alt="avatar" height="55px">
+          <span class="mx-1">{{ $t('about_avatar') }}
+            <a target="new" :title="$t('help')" :href="`http://${locale}.gravatar.com/`">Gravatar</a>
+          </span>
+        </div>
+      </div>
+
     </form>
   </card>
 </template>
@@ -54,7 +66,8 @@ export default {
     formChanged: false,
     form: new Form({
       name: '',
-      email: ''
+      email: '',
+      photo_url: ''
     })
   }),
 
@@ -63,7 +76,8 @@ export default {
   },
 
   computed: mapGetters({
-    user: 'auth/user'
+    user: 'auth/user',
+    locale: 'lang/locale'
   }),
 
   created () {
