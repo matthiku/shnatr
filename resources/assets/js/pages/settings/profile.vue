@@ -31,7 +31,7 @@
               :loading="form.busy"
               :disabled="!formChanged"
               type="success">
-            <fa icon="check" fixed-width/>
+            <fa v-if="formChanged" icon="check" fixed-width/>
             {{ $t('update') }}</v-button>
         </div>
       </div>
