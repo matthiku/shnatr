@@ -17,8 +17,8 @@ new Vue({
   ...App
 })
 
-// Try to enable Service Worker
-if ('serviceWorker' in navigator) {
+// Try to enable Service Worker TODO: (temporarily disabled!)
+if ('serviceWorkers' in navigator) {
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('/sw.js').then(function (registration) {
       // Registration was successful
