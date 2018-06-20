@@ -31,7 +31,7 @@ export default {
   computed: mapGetters({
     user: 'auth/user',
     users: 'auth/users',
-    users: 'auth/rooms'
+    rooms: 'rooms/rooms'
   }),
 
   metaInfo () {
