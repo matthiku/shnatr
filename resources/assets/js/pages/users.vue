@@ -1,14 +1,30 @@
 <template>
-  <card :title="$t('people')">
+  <card>
+    <div class="card-header">
+      <span class="btn btn-outline-dark" disabled>
+        {{ $t('people') }}
+      </span>
+
+      <router-link
+          :to="{name: 'rooms'}"
+          class="float-right btn btn-sm btn-primary"
+        >
+        {{ $t('rooms' ) }}
+      </router-link>
+    </div>
 
     <div class="input-group mb-3">
 
       <div class="input-group-prepend">
-        <span class="input-group-text" id="search-field">{{ $t('search') }}</span>
+        <span class="input-group-text" id="search-field">
+          <fa icon="search" fixed-width/>
+          <span class="ml-1 d-none d-sm-inline">{{ $t('search') }}</span>
+        </span>
       </div>
 
       <input v-model="search"
           type="text"
+          ref="searchField"
           class="form-control"
           :placeholder="$t('search_string')"
           aria-label="Username" aria-describedby="search-field">
@@ -24,7 +40,7 @@
       <ul class="list-group">
 
         <li v-for="user in filteredUsers" :key="user.id"
-            class="list-group-item d-flex justify-content-between align-items-center">
+            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
           <span>
             <img :src="user.photo_url" class="rounded" alt="user avatar" height="35px">
             {{ user.name }}
@@ -71,6 +87,10 @@ export default {
 
   metaInfo () {
     return { title: this.$t('people') }
+  },
+
+  mounted () {
+    this.$refs.searchField.focus()
   },
 
   methods: {

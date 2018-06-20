@@ -9,6 +9,7 @@ export default async (to, from, next) => {
     if (!store.getters['auth/users']) {
       try {
         await store.dispatch('auth/fetchUsers')
+        await store.dispatch('rooms/fetchRooms')
       } catch (e) {}
     }
     next()

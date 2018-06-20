@@ -30,7 +30,7 @@ export const mutations = {
     state.user = user
   },
 
-  [types.FETCH_USER_FAILURE](state) {
+  [types.FETCH_USER_FAILURE] (state) {
     state.token = null
     Cookies.remove('token')
   },
@@ -40,8 +40,7 @@ export const mutations = {
   },
 
   [types.FETCH_USERS_FAILURE] (state) {
-    state.token = null
-    Cookies.remove('token')
+    state.users = null
   },
 
   [types.SEND_VERIFY_EMAIL_SUCCESS] (state, { user }) {
@@ -71,6 +70,7 @@ export const actions = {
     commit(types.SAVE_TOKEN, payload)
   },
 
+  /* jshint ignore:start */
   async fetchUser ({ commit }) {
     try {
       const { data } = await axios.get('/api/user')
@@ -119,4 +119,5 @@ export const actions = {
 
     return data.url
   }
+  /* jshint ignore:end */
 }
