@@ -30,6 +30,8 @@
   "send_password_reset_link": "Send Password Reset Link",
   "settings": "Settings",
   "profile": "Profile",
+  "settings.profile": "Profile",
+  "settings.password": "Password",
   "photo": "Photo",
   "about_avatar": "To create/change your photo, sign up/in to",
   "your_info": "Your Info",

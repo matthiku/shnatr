@@ -1,20 +1,49 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <nav class="navbar navbar-expand-sm navbar-light bg-white">
     <div class="container">
       <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
-        {{ appName }}
+        <img src="/static/icons/icon-128x128.png" alt="logo" height="30px">
       </router-link>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark"
+              @click="$refs.navbarToggler.classList.remove('show')"
+              href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ $t($route.name) }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <router-link :to="{name: 'users'}" class="dropdown-item">
+              <fa icon="cog" fixed-width/>
+              {{ $t('people' ) }}
+            </router-link>
+            <router-link :to="{name: 'rooms'}" class="dropdown-item">
+              <fa icon="comments" fixed-width/>
+              {{ $t('rooms' ) }}
+            </router-link>
+            <div class="dropdown-divider"></div>
+            <router-link :to="{name: 'home'}" class="dropdown-item">
+              <fa icon="cog" fixed-width/>
+              {{ $t('home' ) }}
+            </router-link>
+            <a class="dropdown-item" href="#">New Chat</a>
+          </div>
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" 
+          type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
         <span class="navbar-toggler-icon"/>
       </button>
 
-      <div id="navbarToggler" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
+      <div id="navbarToggler" 
+          ref="navbarToggler"
+          class="collapse navbar-collapse">
+
+        <ul class="navbar-nav"
+            :class="{'d-none': $route.name !== 'home'}"
+          >
           <locale-dropdown/>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
         </ul>
 
         <ul class="navbar-nav ml-auto">

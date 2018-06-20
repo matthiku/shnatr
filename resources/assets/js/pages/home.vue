@@ -2,7 +2,9 @@
   <card :title="$t('home')">
 
     <div class="mb-3">
-      {{ $t('you_are_logged_in') }}
+      <p>
+        {{ $t('you_are_logged_in') }}
+      </p>
 
       <router-link
           :to="{name: 'users'}"

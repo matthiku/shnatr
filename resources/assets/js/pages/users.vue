@@ -1,17 +1,5 @@
 <template>
   <card>
-    <div class="card-header">
-      <span class="btn btn-outline-dark" disabled>
-        {{ $t('people') }}
-      </span>
-
-      <router-link
-          :to="{name: 'rooms'}"
-          class="float-right btn btn-sm btn-primary"
-        >
-        {{ $t('rooms' ) }}
-      </router-link>
-    </div>
 
     <div class="input-group mb-3">
 
