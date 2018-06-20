@@ -1,5 +1,7 @@
 import store from '~/store'
 
+/* jshint ignore:start */
+
 export default async (to, from, next) => {
   if (!store.getters['auth/check'] && store.getters['auth/token']) {
     try {

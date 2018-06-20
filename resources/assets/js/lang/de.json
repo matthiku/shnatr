@@ -18,6 +18,10 @@
   "name": "Name",
   "toggle_navigation": "Navigation umschalten",
   "home": "Home",
+  "users": "Benutzer",
+  "people": "Leute",
+  "rooms": "Gesprächsrunden",
+  "your_rooms": "Deine Gesprächsrunden",
   "help": "Hilfe",
   "you_are_logged_in": "Du bist angemeldet!",
   "reset_password": "Kennwort zurücksetzen",
@@ -38,5 +42,7 @@
   "account_not_verified": "Deine Email-Adresse muss aber noch bestätigt werden",
   "check_email": "Eine Email mit dem Bestätigungs-Link wurde dir zugesandt.",
   "send_confirmation_link": "Email erneut senden",
+  "email_sent": "Email wurde versendet",
+  "email_sent_to": "Eine neue Email mit Bestätigungs-Link wurde gesandt an",
   "install_app": "App Installieren"
 }

@@ -3,6 +3,20 @@
 
     <div class="mb-3">
       {{ $t('you_are_logged_in') }}
+
+      <router-link
+          :to="{name: 'users'}"
+          class="btn btn-sm btn-primary"
+        >
+        {{ $t('people' ) }}
+      </router-link>
+
+      <router-link
+          :to="{name: 'rooms'}"
+          class="btn btn-sm btn-primary"
+        >
+        {{ $t('rooms' ) }}
+      </router-link>
     </div>
 
     <div v-if="user && user.verifyToken">
@@ -21,6 +35,7 @@
 
   </card>
 </template>
+
 
 <script>
 import { mapGetters } from 'vuex'
@@ -44,8 +59,8 @@ export default {
 
       if (this.verifyEmailSent) {
         swal(
-          'Email sent!',
-          'A new verification email was sent to ' + this.user.email,
+          $t('email_sent!'),
+          $t('email_sent_to') + ' ' + this.user.email,
           'success'
         )
       }

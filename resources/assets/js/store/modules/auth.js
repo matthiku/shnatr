@@ -5,6 +5,7 @@ import * as types from '../mutation-types'
 // state
 export const state = {
   user: null,
+  users: null,
   verifyEmailSent: false,
   token: Cookies.get('token')
 }
@@ -12,6 +13,7 @@ export const state = {
 // getters
 export const getters = {
   user: state => state.user,
+  users: state => state.users,
   verifyEmailSent: state => state.verifyEmailSent,
   token: state => state.token,
   check: state => state.user !== null
@@ -28,7 +30,16 @@ export const mutations = {
     state.user = user
   },
 
-  [types.FETCH_USER_FAILURE] (state) {
+  [types.FETCH_USER_FAILURE](state) {
+    state.token = null
+    Cookies.remove('token')
+  },
+
+  [types.FETCH_USERS_SUCCESS] (state, { users }) {
+    state.users = users
+  },
+
+  [types.FETCH_USERS_FAILURE] (state) {
     state.token = null
     Cookies.remove('token')
   },
@@ -43,6 +54,7 @@ export const mutations = {
 
   [types.LOGOUT] (state) {
     state.user = null
+    state.users = null
     state.token = null
 
     Cookies.remove('token')
@@ -66,6 +78,16 @@ export const actions = {
       commit(types.FETCH_USER_SUCCESS, { user: data })
     } catch (e) {
       commit(types.FETCH_USER_FAILURE)
+    }
+  },
+
+  async fetchUsers ({ commit }) {
+    try {
+      const { data } = await axios.get('/api/users')
+
+      commit(types.FETCH_USERS_SUCCESS, { users: data })
+    } catch (e) {
+      commit(types.FETCH_USERS_FAILURE)
     }
   },
 
