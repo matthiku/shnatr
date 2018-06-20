@@ -15,6 +15,7 @@ use Auth;
 use App\Room;
 use App\Events\RoomCreated;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 /**
  * CreateRoomController

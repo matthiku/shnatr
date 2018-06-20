@@ -13,11 +13,9 @@
 
 use Auth;
 use App\Room;
-use App\Events\RoomTyping;
-use App\Events\RoomCreated;
-use App\Events\RoomUpdated;
 use App\Events\RoomDeleted;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 /**
  * DeleteRoomController
@@ -31,5 +29,44 @@ use Illuminate\Http\Request;
 class DeleteRoomController extends Controller
 {
 
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param \App\Room $room Model
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Room $room)
+  {
+    // check if room exists and user owns this room
+    if (!$room || $room->owner->id !== Auth::user()->id) {
+      return;
+    }
+
+    // broadcast the deletion event
+    \Log::info('RoomDeleted event prepared! id: ' . $room->id);
+    broadcast(new RoomDeleted($room->id));
+
+    // first, remove all attached users (chatroom members)
+    $room->users()->detach();
+    // delete all attached files to those messages
+    $room->messages->map(
+      function ($message, $key) {
+        if ($message->filename) {
+          $path = public_path().'/images/';
+          unlink($path.$message->filename);
+        }
+      }
+    );
+
+    // then delete all related messages
+    $room->messages()->delete();
+
+    // now delete the room
+    $room->delete();
+
+    return 'deleted!';
+  }
 
 }

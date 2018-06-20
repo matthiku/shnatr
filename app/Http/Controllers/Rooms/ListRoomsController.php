@@ -14,6 +14,7 @@
 use Auth;
 use App\Room;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 /**
  * ListRoomsController
@@ -28,17 +29,28 @@ class ListRoomsController extends Controller
 {
 
 
+  public function getLatestFrontendVersion()
+  {
+    return response(
+      [
+        'status' => 'OK',
+        'frontendVersion' => filemtime(base_path().'/public/js/app.js')
+      ]
+    );
+  }
+
+
   /**
    * Get a list of all chatrooms a user is member of
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function roomList()
   {
     // get current user
     $user = Auth::user();
 
-    // get list of all chat rooms this user is member of and
+    // get a list of all chat rooms this user is member of and
     // make sure the most recently updated room is coming first
     $rooms = $user->memberships;
 
@@ -50,5 +62,23 @@ class ListRoomsController extends Controller
     }
     return $rooms;
   }
+
+
+
+    /**
+     * Get a single Room.
+     *
+     * @param \App\Room $room Model
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function singleRoom(Room $room)
+    {
+        // get another room object
+        $rm = Room::find($room->id);
+        $rm->messages = $room->messages;
+        return $rm;
+    }
+
 
 }

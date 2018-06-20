@@ -1,0 +1,31 @@
++--------+----------+---------------------------------------+----------------+-------------------------------------------------------------------------+---------------------+
+| Domain | Method   | URI                                   | Name           | Action                                                                  | Middleware          |
++--------+----------+---------------------------------------+----------------+-------------------------------------------------------------------------+---------------------+
+|        | GET|HEAD | _dusk/login/{userId}/{guard?}         |                | Laravel\Dusk\Http\Controllers\UserController@login                      | web                 |
+|        | GET|HEAD | _dusk/logout/{guard?}                 |                | Laravel\Dusk\Http\Controllers\UserController@logout                     | web                 |
+|        | GET|HEAD | _dusk/user/{guard?}                   |                | Laravel\Dusk\Http\Controllers\UserController@user                       | web                 |
+|        | GET|HEAD | api/getlatestfrontendversion          |                | App\Http\Controllers\Rooms\ListRoomsController@getLatestFrontendVersion | api,auth:api        |
+|        | POST     | api/login                             |                | App\Http\Controllers\Auth\LoginController@login                         | api,guest:api,guest |
+|        | POST     | api/logout                            |                | App\Http\Controllers\Auth\LoginController@logout                        | api,auth:api        |
+|        | POST     | api/oauth/{driver}                    |                | App\Http\Controllers\Auth\OAuthController@redirectToProvider            | api,guest:api       |
+|        | GET|HEAD | api/oauth/{driver}/callback           | oauth.callback | App\Http\Controllers\Auth\OAuthController@handleProviderCallback        | api,guest:api       |
+|        | POST     | api/password/email                    |                | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail   | api,guest:api,guest |
+|        | POST     | api/password/reset                    |                | App\Http\Controllers\Auth\ResetPasswordController@reset                 | api,guest:api,guest |
+|        | POST     | api/register                          |                | App\Http\Controllers\Auth\RegisterController@register                   | api,guest:api,guest |
+|        | POST     | api/rooms                             |                | App\Http\Controllers\Rooms\CreateRoomController@store                   | api,auth:api        |
+|        | DELETE   | api/rooms                             |                | App\Http\Controllers\Rooms\DeleteRoomController@destroy                 | api,auth:api        |
+|        | GET|HEAD | api/rooms                             |                | App\Http\Controllers\Rooms\ListRoomsController@roomList                 | api,auth:api        |
+|        | GET|HEAD | api/rooms/{room}                      |                | App\Http\Controllers\Rooms\ListRoomsController@singleRoom               | api,auth:api        |
+|        | POST     | api/rooms/{room}/leave                |                | App\Http\Controllers\Rooms\RoomActivitiesController@leaveRoom           | api,auth:api        |
+|        | POST     | api/rooms/{room}/setemailnotification |                | App\Http\Controllers\Rooms\UpdateRoomController@setemailnotification    | api,auth:api        |
+|        | POST     | api/rooms/{room}/setreading           |                | App\Http\Controllers\Rooms\RoomActivitiesController@setreading          | api,auth:api        |
+|        | POST     | api/rooms/{room}/typing               |                | App\Http\Controllers\Rooms\RoomActivitiesController@typing              | api,auth:api        |
+|        | GET|HEAD | api/sendverifyemail                   |                | App\Http\Controllers\Auth\VerifyController@sendVerifyEmail              | api,auth:api        |
+|        | PATCH    | api/settings/password                 |                | App\Http\Controllers\Settings\PasswordController@update                 | api,auth:api        |
+|        | PATCH    | api/settings/profile                  |                | App\Http\Controllers\Settings\ProfileController@update                  | api,auth:api        |
+|        | GET|HEAD | api/user                              |                | Closure                                                                 | api,auth:api        |
+|        | GET|HEAD | api/users                             |                | App\Http\Controllers\Rooms\RoomActivitiesController@userList            | api,auth:api        |
+|        | GET|HEAD | logs                                  |                | Rap2hpoutre\LaravelLogViewer\LogViewerController@index                  | web                 |
+|        | GET|HEAD | verify/{token}                        | verify         | App\Http\Controllers\Auth\VerifyController@verifyEmail                  | web                 |
+|        | GET|HEAD | {path}                                | home           | Closure                                                                 | web                 |
++--------+----------+---------------------------------------+----------------+-------------------------------------------------------------------------+---------------------+
