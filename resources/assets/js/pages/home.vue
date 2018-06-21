@@ -7,18 +7,17 @@
       </p>
 
       <router-link
-          :to="{name: 'users'}"
+          :to="{name: 'chat.users'}"
           class="btn btn-sm btn-primary"
         >
         {{ $t('people' ) }}
       </router-link>
 
       <router-link
-          :to="{name: 'rooms'}"
-          class="btn btn-sm btn-primary"
-        >
-        {{ $t('rooms' ) }}
-      </router-link>
+          v-html="$t('rooms')"
+          :to="{name: 'chat.rooms'}"
+          class="btn btn-sm btn-primary"/>
+
     </div>
 
     <div v-if="user && user.verifyToken">

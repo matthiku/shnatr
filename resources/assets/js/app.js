@@ -10,12 +10,14 @@ import '~/components'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+/* jshint ignore:start */
 new Vue({
   i18n,
   store,
   router,
   ...App
 })
+/* jshint ignore:end */
 
 // Try to enable Service Worker TODO: (temporarily disabled!)
 if ('service(remove me!)Worker' in navigator) {

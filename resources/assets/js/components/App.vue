@@ -40,7 +40,13 @@ export default {
 
     return {
       title: appName,
-      titleTemplate: `%s · ${appName}`
+      titleTemplate: (titleChunk) => {
+        // remove optional word breaks
+        titleChunk = titleChunk.replace('<wbr>','')
+        // If undefined or blank then we don't need the hyphen
+        return titleChunk ? `${titleChunk} · ${appName}` : appName;
+      }
+      // titleTemplate: `%s · ${appName}`
     }
   },
 

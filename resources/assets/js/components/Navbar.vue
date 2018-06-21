@@ -8,16 +8,16 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-dark"
+              v-html="$t($route.name)"
               @click="$refs.navbarToggler.classList.remove('show')"
               href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ $t($route.name) }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link :to="{name: 'users'}" class="dropdown-item">
+            <router-link :to="{name: 'chat.users'}" class="dropdown-item">
               <fa icon="cog" fixed-width/>
               {{ $t('people' ) }}
             </router-link>
-            <router-link :to="{name: 'rooms'}" class="dropdown-item">
+            <router-link :to="{name: 'chat.rooms'}" class="dropdown-item">
               <fa icon="comments" fixed-width/>
               {{ $t('rooms' ) }}
             </router-link>

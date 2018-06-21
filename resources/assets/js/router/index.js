@@ -40,6 +40,8 @@ function createRouter () {
   return router
 }
 
+/* jshint ignore:start */
+
 /**
  * Global router guard.
  *
@@ -88,6 +90,7 @@ async function afterEach (to, from, next) {
 
   router.app.$loading.finish()
 }
+/* jshint ignore:end */
 
 /**
  * Call each middleware.
@@ -155,6 +158,8 @@ function getMiddleware (components) {
 
   return middleware
 }
+
+/* jshint ignore:start */
 
 /**
  * Scroll Behavior
