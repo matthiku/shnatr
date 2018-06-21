@@ -20,6 +20,8 @@
     "bootstrap": "^4.1.1",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.20",
     "popper.js": "^1.14.3",
     "sweetalert2": "^7.19.3",
     "vform": "^1.0.0",

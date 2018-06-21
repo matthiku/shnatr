@@ -13,10 +13,11 @@
         >
           <!-- show room name -->
           <span class="room-props-and-name">
-            <i  title="room settings dialog"
+            <fa icon="cog" fixed-width
+                title="room settings dialog"
                 v-if="room.id !== 0 && room.id !== activeRoom"
                 @click.stop="editRoom(room)"
-                class="material-icons">settings</i>
+              />
             
             <span v-if="room.name" class="room-name ml-1">{{ roomName }}</span>
             
@@ -29,8 +30,7 @@
 
         <!-- show messages counter -->
         <span class="nowrap overflow-hidden">
-          <small class="mr-1 mr-sm-2">{{ room.updated_at }}</small>
-          <!-- <small class="mr-1 mr-sm-2">{{ $moment(room.updated_at).fromNow() }}</small> -->
+          <small class="mr-1 mr-sm-2">{{ $moment(room.updated_at).fromNow() }}</small>
           <!-- <span v-if="unreadMessages + arrivedMessages"
               class="badge badge-danger badge-pill">{{ unreadMessages }}</span> -->
           <span class="badge badge-secondary badge-pill mr-1">{{ room.messages ? room.messages.length : 0 }}</span>
@@ -106,12 +106,16 @@
 
 <script>
 import ChatLog from './Log'
+import ShowRoomMembers from './Show/RoomMembers'
 import { mapGetters } from 'vuex'
 
 export default {
   props: ['room', 'activeRoom'],
 
-  components: { ChatLog },
+  components: {
+    ChatLog,
+    ShowRoomMembers
+  },
 
   computed: {
     roomName () {

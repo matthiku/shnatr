@@ -122,6 +122,8 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: ['message', 'room', 'index'],
 
@@ -132,12 +134,6 @@ export default {
   },
 
   computed: {
-    users () {
-      return this.$store.state.user.users
-    },
-    user () {
-      return this.$store.state.user.user
-    },
     nextMessage () {
       if (this.index === this.room.messages.length) return null
       return this.room.messages[this.index+1]
@@ -171,7 +167,11 @@ export default {
     showUsername () {
       if (!this.nextMessage) return true
       return this.message.user_id !== this.nextMessage.user_id
-    }
+    },
+    ...mapGetters({
+      user: 'auth/user',
+      rooms: 'rooms/rooms'
+    })
   },
 
   methods: {

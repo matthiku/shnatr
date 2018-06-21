@@ -42,9 +42,19 @@
 
 
 <script>
+import ShowMessage from './Show/Message'
+import ShowSlideshow from './Show/Slideshow'
+import EditComposeMessage from './Edit/ComposeMessage'
+
 export default {
 
   props: ['room'],
+
+  components: {
+    ShowMessage,
+    ShowSlideshow,
+    EditComposeMessage
+  },
 
   methods: {
     closeAllChats () {

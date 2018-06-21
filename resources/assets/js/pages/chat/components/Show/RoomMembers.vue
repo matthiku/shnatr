@@ -20,7 +20,7 @@
             'bg-secondary' : member.id !== room.owner_id && !member.typing
           }"
           class="p-1 avatar-room-helper text-white rounded-circle mr-1"
-          >{{ member.username.substr(0,1).toUpperCase() }}
+          >{{ member.name.substr(0,1).toUpperCase() }}
         </span><span
             v-if="member.typing" class="typing">
           <span>&bull;</span><span>&bull;</span><span>&bull;</span>
