@@ -29,9 +29,10 @@
 
         <!-- show messages counter -->
         <span class="nowrap overflow-hidden">
-          <small class="mr-1 mr-sm-2">{{ $moment(room.updated_at).fromNow() }}</small>
-          <span v-if="unreadMessages + arrivedMessages"
-              class="badge badge-danger badge-pill">{{ unreadMessages }}</span>
+          <small class="mr-1 mr-sm-2">{{ room.updated_at }}</small>
+          <!-- <small class="mr-1 mr-sm-2">{{ $moment(room.updated_at).fromNow() }}</small> -->
+          <!-- <span v-if="unreadMessages + arrivedMessages"
+              class="badge badge-danger badge-pill">{{ unreadMessages }}</span> -->
           <span class="badge badge-secondary badge-pill mr-1">{{ room.messages ? room.messages.length : 0 }}</span>
         </span>
       </div>
@@ -104,22 +105,21 @@
 
 
 <script>
+import ChatLog from './Log'
+import { mapGetters } from 'vuex'
+
 export default {
   props: ['room', 'activeRoom'],
 
+  components: { ChatLog },
+
   computed: {
-    user () {
-      return this.$store.state.user.user
-    },
     roomName () {
       if (this.room.users.length !== 2 && this.room.name)
         return this.room.name
       if (this.room.users.length === 2 || !this.room.name)
         return this.room.users.find(el => el.id !== this.user.id).username
       return '(unnamed)'
-    },
-    rooms () {
-      return this.$store.state.chat.rooms
     },
     unreadMessages () {
       const usersReadingProgress = this.room.users.find(usr => usr.id === this.user.id)
@@ -130,17 +130,21 @@ export default {
       if (lastReadMessageIdx < 0) return 0
       // console.log(usersReadingProgress.pivot.updated_at, lastReadMessageIdx)
       return this.room.messages.length - lastReadMessageIdx
+    // },
+    // arrivedMessages () {
+    //   let num = 0
+    //   this.newMessagesArrived.forEach(el => {
+    //       if (el.room_id === this.room.id) num += 1
+    //   })
+    //   return num      
+    // },
+    // newMessagesArrived () {
+    //   return this.$store.state.chat.newMessagesArrived
     },
-    arrivedMessages () {
-      let num = 0
-      this.newMessagesArrived.forEach(el => {
-          if (el.room_id === this.room.id) num += 1
-      })
-      return num      
-    },
-    newMessagesArrived () {
-      return this.$store.state.chat.newMessagesArrived
-    }
+    ...mapGetters({
+      user: 'auth/user',
+      rooms: 'rooms/rooms'
+    })
   },
 
   mounted () {

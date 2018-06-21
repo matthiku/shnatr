@@ -103,12 +103,6 @@ export default {
     },
     newMessagesArrived () {
       return this.$store.state.chat.newMessagesArrived
-    },
-    frontendTimestamp () {
-      return this.$store.state.shared.frontendTimestamp
-    },
-    latestFrontendVersion () {
-      return this.$store.state.shared.latestFrontendVersion
     }
   },
 

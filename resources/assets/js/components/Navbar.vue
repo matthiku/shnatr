@@ -14,17 +14,17 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <router-link :to="{name: 'chat.users'}" class="dropdown-item">
-              <fa icon="cog" fixed-width/>
-              {{ $t('people' ) }}
+              <fa icon="users" fixed-width/>
+              <span v-html="$t('people')"></span>
             </router-link>
             <router-link :to="{name: 'chat.rooms'}" class="dropdown-item">
               <fa icon="comments" fixed-width/>
-              {{ $t('rooms' ) }}
+              <span v-html="$t('rooms')"></span>
             </router-link>
             <div class="dropdown-divider"></div>
             <router-link :to="{name: 'home'}" class="dropdown-item">
               <fa icon="cog" fixed-width/>
-              {{ $t('home' ) }}
+              <span v-html="$t('home')"></span>
             </router-link>
             <a class="dropdown-item" href="#">New Chat</a>
           </div>

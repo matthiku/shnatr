@@ -1,24 +1,20 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-xl-8 col-lg-10 col-md-12 mw-1k px-0 px-sm-1">
-      <div class="card shadow-sm">
+  <div class="card shadow-sm">
 
-        <div class="card-body chatroom-canvas p-0 p-sm-1 p-md-2 p-lg-3 p-xl-4">
+    <div class="card-body p-1 p-sm-2 p-md-3">
 
-          <div class="accordion shadow" id="chatrooms">
+      <div class="accordion shadow" id="chatrooms">
 
-            <div
-                v-for="(room, index) in rooms"
-                :key="index"
-                :room="room"
-                class="card mb-1 mb-sm-2 every-chatrooms-card"
-              >{{room.name}}</div>
-
-          </div>
-        </div>
+        <ChatRoom
+            v-for="(room, index) in rooms"
+            v-if="activeRoom === null || activeRoom === room.id"
+            :key="index"
+            :room="room"
+            :activeRoom="activeRoom"
+            class="card mb-1 mb-sm-2 every-chatrooms-card"
+          ></ChatRoom>
 
       </div>
-
     </div>
 
   </div>
@@ -26,10 +22,21 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import ChatRoom from './components/Room'
 import swal from 'sweetalert2'
 
 export default {
   middleware: 'auth',
+
+  components: {
+    ChatRoom
+  },
+
+  data () {
+    return {
+      activeRoom: null
+    }
+  },
 
   computed: mapGetters({
     user: 'auth/user',
