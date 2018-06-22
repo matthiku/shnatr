@@ -179,9 +179,9 @@ export default {
       let elem = document.getElementById('collapse-'+roomId)
       // are we closing or opening this room?
       if (elem.classList.contains('show')) {
-        this.$emit('set-active-room', null)
+        this.$emit('set-active-room', null) // all rooms will be closed
       } else {
-        this.$emit('set-active-room', roomId)
+        this.$emit('set-active-room', roomId) // all but the current room will be closed
         if (roomId === 0) return
 
         this.$store.commit('rooms/cleanUpRooms')
