@@ -106,12 +106,13 @@ export const actions = {
     commit(types.UPDATE_USER, payload)
   },
 
-  async logout ({ commit }) {
+  async logout ({ commit, rootState }) {
     try {
       await axios.post('/api/logout')
     } catch (e) { }
 
     commit(types.LOGOUT)
+    rootState.rooms.rooms = null
   },
 
   async fetchOauthUrl (ctx, { provider }) {

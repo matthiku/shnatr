@@ -30,8 +30,11 @@ export const mutations = {
   clearRoomFromNewMessagesArrived (state, payload) {
     state.newMessagesArrived = state.newMessagesArrived
       .filter(el => el.room_id !== payload)
-  }
+  },
 
+  [types.LOGOUT] (state) {
+    state.rooms = null
+  }
 }
 
 // actions
