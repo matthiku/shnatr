@@ -67,7 +67,14 @@
 
 
 <script>
+import InsertEmoticons from '../Insert/Emoticons'
+import InsertFiles from '../Insert/Files'
+
 export default {
+  components: {
+    InsertEmoticons,
+    InsertFiles
+  },
 
   props: ['room'],
   

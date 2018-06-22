@@ -33,6 +33,7 @@
 <script>
 // DropZone to upload files
 import vueDropzone from "vue2-dropzone";
+import { mapGetters } from 'vuex'
 
 export default {
   props: ['room', 'capture'],
@@ -42,12 +43,16 @@ export default {
       config: {
         url: `/api/messages/${this.room.id}/upload`,
         headers: {
-          'X-CSRF-TOKEN' : document.head.querySelector('meta[name="csrf-token"]').content,
+          'X-CSRF-TOKEN' : this.token,
           'X-XSRF-TOKEN' : document.cookie.split('=')[1]
         }
       }
     }
   },
+
+  computed: mapGetters({
+    token: 'auth/token'
+  }),
 
   components: {
     vueDropzone

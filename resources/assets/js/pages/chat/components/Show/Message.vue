@@ -46,10 +46,12 @@
 
           <span v-else-if="!deleted" v-html="showLinks(message.message)"></span>
 
-          <i v-if="message.user_id === user.id"
-              @click="deleting = true"
+          <fa v-if="message.user_id === user.id"
+              icon="search" fixed-width
               title="delete this message"
-              class="delete-message cursor-pointer text-danger material-icons">delete</i>
+              @click="deleting = true"
+              class="delete-message cursor-pointer text-danger"
+            />
         </span>
 
         <small v-if="deleted">(The user deleted this message {{ message.message }})</small>
@@ -122,9 +124,14 @@
 
 
 <script>
+import ShowReadingProgress from './readingProgress'
 import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    ShowReadingProgress
+  },
+
   props: ['message', 'room', 'index'],
 
   data () {
@@ -170,6 +177,7 @@ export default {
     },
     ...mapGetters({
       user: 'auth/user',
+      users: 'auth/users',
       rooms: 'rooms/rooms'
     })
   },

@@ -26,6 +26,8 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: ['message', 'room', 'index', 'simple'],
 
@@ -36,15 +38,15 @@ export default {
   },
 
   computed: {
-    user () {
-      return this.$store.state.user.user
-    },
     messages () {
       return this.room.messages
     },
     members () {
       return this.room.users
-    }
+    },
+    ...mapGetters({
+      user: 'auth/user'
+    })    
   },
 
   methods: {

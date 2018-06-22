@@ -14,11 +14,7 @@ Vue.config.productionTip = false
 // Provide the moment library to all components
 moment.tz.setDefault('UTC')
 // add moment to the Vue prototype, so that we can use it in all components!
-Object.defineProperty(Vue.prototype, '$moment', {
-  get () {
-    return this.$root.moment
-  }
-})
+Vue.prototype.$moment = moment
 
 /* eslint-disable no-new */
 /* jshint ignore:start */
