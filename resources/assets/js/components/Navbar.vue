@@ -16,9 +16,12 @@
           <a class="nav-link dropdown-toggle text-dark"
               v-html="$t($route.name)"
               @click="$refs.navbarToggler.classList.remove('show')"
-              href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              data-toggle="dropdown"
+              data-display="dynamic"
+              href="#" id="navbarDropdown" role="button"
+              aria-haspopup="true" aria-expanded="false">
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu position-absolute" aria-labelledby="navbarDropdown">
 
             <router-link :to="{name: 'chat.users'}" class="dropdown-item">
               <fa icon="users" fixed-width/>
@@ -46,7 +49,8 @@
       <button class="navbar-toggler"
           ref="burgerMenuToggler"
           id="burgerMenuToggler"
-          type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
+          type="button" data-toggle="collapse" data-target="#navbarToggler" 
+          aria-controls="navbarToggler" aria-expanded="false">
         <span class="navbar-toggler-icon"/>
       </button>
 
