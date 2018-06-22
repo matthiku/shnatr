@@ -1,3 +1,6 @@
+/**
+ * Show individual Room
+ */
 <template>
   <span>              
     <!-- chatRoom header
@@ -11,16 +14,17 @@
           data-toggle="collapse"
           :data-target="'#collapse-'+room.id"
         >
-          <!-- show room name -->
+          <!-- edit properties and show room name -->
           <span class="room-props-and-name">
             <fa icon="cog" fixed-width
                 title="room settings dialog"
                 v-if="room.id !== 0 && room.id !== activeRoom"
-                @click.stop="editRoom(room)"
+                @click="editRoom(room)"
+                data-toggle="modal" data-target="#chatRoomProperties"
               />
-            
-            <span v-if="room.name" class="room-name ml-1">{{ roomName }}</span>
-            
+            <span v-if="room.name" class="room-name ml-1">
+              {{ room.name }}
+            </span>
           </span>
 
           <!-- show room members inline on wider screens -->
@@ -195,8 +199,8 @@ export default {
       // edit properties of or settings for this room
       let members = []
       room.users.map(el => members.push(el.id))
-      this.$store.commit('setNewRoomMembers', members)
-      this.$store.commit('setDialog',
+      this.$store.commit('shared/setNewRoomMembers', members)
+      this.$store.commit('shared/setDialog',
         {
           what: 'updateRoom',
           option: room.id,

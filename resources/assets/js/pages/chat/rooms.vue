@@ -17,19 +17,24 @@
       </div>
     </div>
 
+    <!-- modal dialog to edit chat room properties or create a new room -->
+    <EditRoomProperties />
+
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import ChatRoom from './components/Room'
+import EditRoomProperties from "./components/Edit/RoomProperties";
 import swal from 'sweetalert2'
 
 export default {
   middleware: 'auth',
 
   components: {
-    ChatRoom
+    ChatRoom,
+    EditRoomProperties
   },
 
   data () {

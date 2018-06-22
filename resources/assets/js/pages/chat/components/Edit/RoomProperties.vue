@@ -16,6 +16,7 @@
 <template>
   <div class="modal fade" 
       id="chatRoomProperties"
+      ref="chatRoomProperties"
       tabindex="-1"
       role="dialog"
     >
@@ -120,7 +121,13 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
+import ShowRoomMembers from '../Show/RoomMembers'
+
 export default {
+  components: {
+    ShowRoomMembers
+  },
 
   data () {
     return {
@@ -135,29 +142,19 @@ export default {
     }
   },
 
-  computed: {
-    user () {
-      return this.$store.state.user.user
-    },
-    users () {
-      return this.$store.state.user.users
-    },
-    rooms () {
-      return this.$store.state.chat.rooms
-    },
-    newRoomMembers () {
-      return this.$store.state.chat.newRoomMembers
-    },
-    dialog () {
-      return this.$store.state.shared.dialog
-    }
-  },
+  computed: mapGetters({
+      user: 'auth/user',
+      users: 'auth/users',
+      rooms: 'rooms/rooms',
+      dialog: 'shared/dialog',
+      newRoomMembers: 'shared/newRoomMembers'
+    }),
 
-  mounted () {
-    $('#chatRoomProperties').on('shown.bs.modal', function () {
-      $('#editRoomName').trigger('focus')
-    })
-  },
+  // mounted () {
+  //   $('#chatRoomProperties').on('shown.bs.modal', function () {
+  //     $('#editRoomName').trigger('focus')
+  //   })
+  // },
 
   watch: {
     newRoomMembers (val) {
@@ -174,17 +171,19 @@ export default {
           // directly create the new chat, no dialog needed
           this.executeAction()
         } else {
-          $('#chatRoomProperties').modal('show')
+          // this.$refs.chatRoomProperties.modal('show')
         }        
       }
       if (val.what === 'updateRoom') {
         this.title = 'Edit Chat Room'
         this.buttonText = 'Save'
         this.roomName = this.dialog.roomName
-        $('#chatRoomProperties').modal('show')
+        // this.$refs.chatRoomProperties.modal('show')
+        // $('#chatRoomProperties').modal('show')
       }
       if (val === '') {
-        $('#chatRoomProperties').modal('hide')
+        // this.$refs.chatRoomProperties.modal('hide')
+        // $('#chatRoomProperties').modal('hide')
       }
 
       // set the current room accordingly

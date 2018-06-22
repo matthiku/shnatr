@@ -37,10 +37,10 @@
     </div>
 
     <!-- modal for user settings -->
-    <UserSettings></UserSettings>
+    <UserSettings />
 
     <!-- modal dialog to edit chat room properties or create a new room -->
-    <EditRoomProperties></EditRoomProperties>
+    <EditRoomProperties />
 
   </div>
 </template>
