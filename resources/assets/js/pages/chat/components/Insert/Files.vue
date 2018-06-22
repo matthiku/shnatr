@@ -31,6 +31,7 @@
 
 
 <script>
+import $ from 'jquery'
 // DropZone to upload files
 import vueDropzone from "vue2-dropzone";
 import { mapGetters } from 'vuex'

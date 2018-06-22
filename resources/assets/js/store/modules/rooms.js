@@ -3,7 +3,8 @@ import * as types from '../mutation-types'
 
 // state
 export const state = {
-  rooms: null
+  rooms: null,
+  newMessagesArrived: []
 }
 
 // getters
@@ -20,6 +21,15 @@ export const mutations = {
 
   [types.FETCH_ROOMS_FAILURE] (state) {
     state.rooms = null
+  },
+
+  cleanUpRooms (state) {
+    state.rooms = state.rooms.filter(el => el.id !== 0)
+  },
+
+  clearRoomFromNewMessagesArrived (state, payload) {
+    state.newMessagesArrived = state.newMessagesArrived
+      .filter(el => el.room_id !== payload)
   }
 
 }

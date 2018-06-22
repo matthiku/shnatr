@@ -9,11 +9,11 @@
       <img v-if="member.avatar"
           class="member-avatar rounded-circle"
           :src="member.avatar"
-          :alt="member.username">
+          :alt="member.name">
       <span v-else
           class="px-2 py-1 member-avatar border border-dark rounded-circle"
           :class="[ member.typing ? 'bg-warning' : 'text-white bg-info' ]"
-          >{{ member.username ? member.username.charAt(0).toUpperCase() : '' }}</span>
+          >{{ member.name ? member.name.charAt(0).toUpperCase() : '' }}</span>
 
       <span 
           v-if="!simple && member.typing" class="mr-2 typing">

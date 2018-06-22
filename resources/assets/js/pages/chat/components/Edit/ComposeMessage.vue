@@ -68,8 +68,10 @@
 
 
 <script>
-import InsertEmoticons from '../Insert/Emoticons'
+import $ from 'jquery'
+import { mapGetters } from 'vuex'
 import InsertFiles from '../Insert/Files'
+import InsertEmoticons from '../Insert/Emoticons'
 
 export default {
   components: {
@@ -87,14 +89,10 @@ export default {
     }
   },
 
-  computed: {
-    action () {
-      return this.$store.state.shared.action
-    },
-    user () {
-      return this.$store.state.user.user
-    },
-  },
+  computed: mapGetters({
+      user: 'auth/user',
+      dialog: 'shared/action'
+    }),
 
   mounted () {
     // check if this room was just added
@@ -150,7 +148,7 @@ export default {
       if (this.$moment(usersReadingProgress).isBefore(this.$moment(roomLastUpdate))) {
         this.$store.dispatch('setReadingProgress', this.room.id)
       }
-      this.$store.commit('clearRoomFromNewMessagesArrived', this.room.id)
+      this.$store.commit('rooms/clearRoomFromNewMessagesArrived', this.room.id)
     },
 
     closeAllChats () {

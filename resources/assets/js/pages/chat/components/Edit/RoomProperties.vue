@@ -204,8 +204,8 @@ export default {
 
   methods: {
     closeDialog () {
-      this.$store.commit('setDialog', '')
-      this.$store.commit('setNewRoomMembers', [])
+      this.$store.commit('shared/setDialog', '')
+      this.$store.commit('shared/setNewRoomMembers', [])
       this.deletingRoom = false
       this.userIsOwner = false
       this.room = null

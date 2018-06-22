@@ -72,7 +72,7 @@
         <br>
         <strong>
           <span v-if="usersObj[message.user_id] && showUsername"
-            >{{ usersObj[message.user_id].username }} -
+            >{{ usersObj[message.user_id].name }} &bull;
           </span>
 
           <span v-if="showMessageDate"
