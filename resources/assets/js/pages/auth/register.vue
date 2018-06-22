@@ -1,7 +1,10 @@
 <template>
   <div class="row">
     <div class="col-lg-8 m-auto">
-      <card :title="$t('register')">
+
+      <!-- <card :title="$t('register')"> -->
+      <card>
+
         <form @submit.prevent="register" @keydown="form.onKeydown($event)">
           <!-- Name -->
           <div class="form-group row">
@@ -45,8 +48,14 @@
               <v-button :loading="form.busy">
                 {{ $t('register') }}
               </v-button>
+              <router-link :to="{ name: 'login' }" class="small ml-auto my-auto">
+                {{ $t('login') }}
+              </router-link>
+            </div>
 
-              <!-- Socialite Register Buttons -->
+            <!-- Socialite Register Buttons -->
+            <p class="mx-auto mt-2 mb-1">{{ $t('or_login_with')  }}</p>
+            <div class="col-md-7 offset-md-3 d-flex justify-content-between">
               <login-with-github/>
               <login-with-google/>
               <login-with-facebook/>

@@ -43,6 +43,7 @@
   "password_updated": "Your password has been updated!",
   "new_password": "New Password",
   "login_with": "Login with",
+  "or_login_with": "Or login with",
   "register_with": "Register with",
   "or_login_with_pw": "Or log in with password:",
   "account_not_verified": "Your email address still has to be verified",

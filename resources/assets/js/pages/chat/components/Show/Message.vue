@@ -47,7 +47,7 @@
           <span v-else-if="!deleted" v-html="showLinks(message.message)"></span>
 
           <fa v-if="message.user_id === user.id"
-              icon="search" fixed-width
+              icon="trash-alt" fixed-width
               title="delete this message"
               @click="deleting = true"
               class="delete-message cursor-pointer text-danger"

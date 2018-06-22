@@ -1,37 +1,51 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-light bg-white">
     <div class="container">
+
+      <!-- app icon and home button -->
       <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
         <img src="/static/icons/icon-128x128.png" alt="logo" height="30px">
       </router-link>
 
+      <!-- main app menu -->
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
+        <li v-if="!user" class="nav-item"
+            v-html="$t($route.name)"
+          ></li>
+        <li v-else class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-dark"
               v-html="$t($route.name)"
               @click="$refs.navbarToggler.classList.remove('show')"
               href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
             <router-link :to="{name: 'chat.users'}" class="dropdown-item">
               <fa icon="users" fixed-width/>
               <span v-html="$t('people')"></span>
             </router-link>
+
             <router-link :to="{name: 'chat.rooms'}" class="dropdown-item">
               <fa icon="comments" fixed-width/>
               <span v-html="$t('rooms')"></span>
             </router-link>
             <div class="dropdown-divider"></div>
+
             <router-link :to="{name: 'home'}" class="dropdown-item">
               <fa icon="cog" fixed-width/>
               <span v-html="$t('home')"></span>
             </router-link>
+
             <a class="dropdown-item" href="#">New Chat</a>
           </div>
         </li>
       </ul>
 
-      <button class="navbar-toggler" 
+
+      <!-- burger menu on small devices -->
+      <button class="navbar-toggler"
+          ref="burgerMenuToggler"
+          id="burgerMenuToggler"
           type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
         <span class="navbar-toggler-icon"/>
       </button>
@@ -40,13 +54,14 @@
           ref="navbarToggler"
           class="collapse navbar-collapse">
 
+        <!-- language selection dropdown menu only on home page! -->
         <ul class="navbar-nav"
-            :class="{'d-none': $route.name !== 'home'}"
-          >
+           :class="{'d-none': $route.name !== 'home'}">
           <locale-dropdown/>
         </ul>
 
         <ul class="navbar-nav ml-auto">
+
           <!-- Authenticated -->
           <li v-if="user" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark"
@@ -72,14 +87,15 @@
               </a>
             </div>
           </li>
+
           <!-- Guest -->
           <template v-else>
-            <li class="nav-item">
+            <li class="nav-item" @click="$refs.burgerMenuToggler.click()">
               <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
                 {{ $t('login') }}
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" @click="$refs.burgerMenuToggler.click()">
               <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
                 {{ $t('register') }}
               </router-link>

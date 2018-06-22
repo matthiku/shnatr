@@ -1,7 +1,8 @@
 <template>
   <div class="row">
     <div class="col-lg-8 m-auto">
-      <card :title="$t('login')">
+      <!-- <card :title="$t('login')"> -->
+      <card>
 
         <!-- Oauth Provider Login Buttons -->
         <span v-if="githubAuth || googleAuth || facebookAuth">
@@ -68,6 +69,9 @@
               <v-button :loading="form.busy">
                 {{ $t('login') }}
               </v-button>
+              <router-link :to="{ name: 'register' }" class="small ml-auto my-auto">
+                {{ $t('register') }}
+              </router-link>
             </div>
           </div>
         </form>

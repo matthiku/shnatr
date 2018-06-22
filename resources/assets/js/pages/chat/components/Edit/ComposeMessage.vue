@@ -7,7 +7,8 @@
         <button class="btn btn-secondary" type="button"
             title="insert emoticon"
             @click="selectEmoticonDlg"
-          ><i class="material-icons">insert_emoticon</i></button>
+          ><fa icon="smile" fixed-width/>
+        </button>
       </div>
 
       <input
@@ -29,7 +30,7 @@
         <button class="btn btn-secondary" type="button"
             title="send photos or documents"
             @click="selectFilesDlg"
-          ><i class="material-icons">attach_file</i></button>
+          ><fa icon="paperclip" fixed-width/></button>
 
         <!-- TODO: (for desktops) <button class="btn btn-secondary" type="button"
             title="record a message (coming soon!)"

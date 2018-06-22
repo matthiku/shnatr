@@ -4,7 +4,7 @@
       {{ title }}
     </div>
 
-    <div class="card-body p-0 p-sm-1 p-md-2">
+    <div class="card-body p-1 p-md-2">
       <slot/>
     </div>
   </div>
