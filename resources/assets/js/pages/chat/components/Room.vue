@@ -19,7 +19,7 @@
             <fa icon="cog" fixed-width
                 title="room settings dialog"
                 v-if="room.id !== 0 && room.id !== activeRoom"
-                @click="editRoom(room)"
+                @click.stop="editRoom(room)"
                 data-toggle="modal" data-target="#chatRoomProperties"
               />
             <span v-if="room.name" class="room-name ml-1">

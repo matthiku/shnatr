@@ -121,6 +121,7 @@
 
 
 <script>
+import $ from 'jquery'
 import { mapGetters } from 'vuex'
 import ShowRoomMembers from '../Show/RoomMembers'
 
@@ -150,11 +151,11 @@ export default {
       newRoomMembers: 'shared/newRoomMembers'
     }),
 
-  // mounted () {
-  //   $('#chatRoomProperties').on('shown.bs.modal', function () {
-  //     $('#editRoomName').trigger('focus')
-  //   })
-  // },
+  mounted () {
+    $('#chatRoomProperties').on('shown.bs.modal', function () {
+      $('#editRoomName').trigger('focus')
+    })
+  },
 
   watch: {
     newRoomMembers (val) {
@@ -171,7 +172,8 @@ export default {
           // directly create the new chat, no dialog needed
           this.executeAction()
         } else {
-          // this.$refs.chatRoomProperties.modal('show')
+          $(this.$refs.chatRoomProperties).modal('show')
+          // $('#chatRoomProperties').modal('show')
         }        
       }
       if (val.what === 'updateRoom') {
@@ -179,11 +181,11 @@ export default {
         this.buttonText = 'Save'
         this.roomName = this.dialog.roomName
         // this.$refs.chatRoomProperties.modal('show')
-        // $('#chatRoomProperties').modal('show')
+        $('#chatRoomProperties').modal('show')
       }
       if (val === '') {
         // this.$refs.chatRoomProperties.modal('hide')
-        // $('#chatRoomProperties').modal('hide')
+        $('#chatRoomProperties').modal('hide')
       }
 
       // set the current room accordingly
