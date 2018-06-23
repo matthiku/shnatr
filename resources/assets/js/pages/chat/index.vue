@@ -18,12 +18,20 @@
         <router-view/>
       </transition>
     </div>
+
+    <!-- modal dialog to edit chat room properties or create a new room -->
+    <EditRoomProperties />
+
   </div>
 </template>
 
 <script>
+import EditRoomProperties from "./components/Edit/RoomProperties";
+
 export default {
   middleware: 'auth',
+
+  components: { EditRoomProperties },
 
   computed: {
     tabs () {

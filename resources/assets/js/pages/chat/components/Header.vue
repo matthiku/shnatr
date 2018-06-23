@@ -2,50 +2,45 @@
  * Show Room Header
  */
 <template>
-  <span>              
-    <!-- chatRoom header
-      -->
-    <div class="card-header px-1 pt-1 pb-1 p-sm-1 p-md-2 my-0" :id="'heading-'+room.id">
+  <div class="card-header px-1 pt-1 pb-1 p-sm-1 p-md-2 my-0" :id="'heading-'+room.id">
 
-      <div @click="openRoom" 
-          class="d-flex justify-content-between mb-0 w-100 p-0 cursor-pointer chatroom-header">
+    <div @click="toggleRoom" 
+        class="d-flex justify-content-between mb-0 w-100 p-0 cursor-pointer chatroom-header">
 
-          <!-- edit properties and show room name -->
-          <span class="room-props-and-name">
-            <fa icon="cog" fixed-width
-                title="room settings dialog"
-                v-if="room.id !== 0"
-                @click.stop="editRoom(room)"
-                data-toggle="modal" data-target="#chatRoomProperties"
-              />
-            <span v-if="room.name" class="room-name ml-1">
-              {{ room.name }}
-            </span>
-          </span>
-
-          <!-- show room members inline on wider screens -->
-          <ShowRoomMembers
-              class="d-none d-md-inline"
-              :room="room" :user="user"
+        <!-- edit properties and show room name -->
+        <span class="room-props-and-name">
+          <fa icon="cog" fixed-width
+              title="room settings dialog"
+              v-if="room.id !== 0"
+              @click.stop="editRoom(room)"
+              data-toggle="modal" data-target="#chatRoomProperties"
             />
 
-        <!-- show messages counter -->
-        <span class="nowrap overflow-hidden">
-          <small class="mr-1 mr-sm-2">{{ $moment(room.updated_at).fromNow() }}</small>
-          <!-- <span v-if="unreadMessages + arrivedMessages"
-              class="badge badge-danger badge-pill">{{ unreadMessages }}</span> -->
-          <span class="badge badge-secondary badge-pill mr-1">{{ room.messages ? room.messages.length : 0 }}</span>
+          <span v-if="room.name" class="room-name ml-1">{{ room.name }}</span>
         </span>
-      </div>
 
-      <!-- on smaller screens show room members on extra line -->
-      <ShowRoomMembers
-          class="d-md-none d-block d-flex flex-nowrap justify-content-center overflow-hidden"
-          :room="room" :user="user"
-        />
+        <!-- show room members inline on wider screens -->
+        <ShowRoomMembers
+            class="d-none d-md-inline"
+            :room="room" :user="user"
+          />
 
+      <!-- show messages counter -->
+      <span class="nowrap overflow-hidden">
+        <small class="mr-1 mr-sm-2">{{ $moment(room.updated_at).fromNow() }}</small>
+        <!-- <span v-if="unreadMessages + arrivedMessages"
+            class="badge badge-danger badge-pill">{{ unreadMessages }}</span> -->
+        <span class="badge badge-secondary badge-pill mr-1">{{ room.messages ? room.messages.length : 0 }}</span>
+      </span>
     </div>
-  </span>  
+
+    <!-- on smaller screens show room members on extra line -->
+    <ShowRoomMembers
+        class="d-md-none d-block d-flex flex-nowrap justify-content-center overflow-hidden"
+        :room="room" :user="user"
+      />
+
+  </div>
 </template>
 
 
@@ -139,8 +134,12 @@ export default {
       }, 9000);
     },
 
-    openRoom () {
-      this.$router.push({ name: 'chat.room', params: {room_id: this.room.id}})
+    // toggle between all rooms and single room
+    toggleRoom () {
+      if (this.$route.name === 'chat.room')
+        this.$router.push({name: 'chat.rooms'})
+      else
+        this.$router.push({ name: 'chat.room', params: {room_id: this.room.id}})
     },
 
     editRoom (room) {

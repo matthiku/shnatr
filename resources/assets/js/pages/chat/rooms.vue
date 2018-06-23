@@ -3,45 +3,36 @@
 
     <div class="card-body p-1 p-sm-2 p-md-3">
 
-      <div class="shadow" id="chatrooms">
+      <div class="shadow">
 
-        <Header
+        <RoomHeader
             v-for="(room, index) in rooms"
-            v-if="activeRoom === null || activeRoom === room.id"
             :key="index"
             :room="room"
-            :activeRoom="activeRoom"
-            @set-active-room="setActiveRoom"
             class="card mb-1 mb-sm-2 every-chatrooms-card"
-          ></Header>
+          ></RoomHeader>
 
       </div>
     </div>
-
-    <!-- modal dialog to edit chat room properties or create a new room -->
-    <EditRoomProperties />
 
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Header from './components/Header'
-import EditRoomProperties from "./components/Edit/RoomProperties";
+import RoomHeader from './components/Header'
 import swal from 'sweetalert2'
 
 export default {
   middleware: 'auth',
 
   components: {
-    Header,
-    EditRoomProperties
+    RoomHeader
   },
 
   data () {
     return {
       pageTitle: this.$t('rooms'),
-      activeRoom: null,
       onlineUsers: 1,
       newMessagesArrived: 0
     }
@@ -64,21 +55,6 @@ export default {
       // open the chatroom of the first new message if no room is currently open
       if (val.length && !this.activeRoom) {
         this.activeRoom = val[0].room.id
-      }
-    },
-
-    activeRoom (val) {
-      if (this.activeRoom === 0) this.activeRoom = null
-      this.setPageTitle()
-
-      // check if this user has the full reading progress for this room
-      if (!val) return
-      let room = this.rooms.find(el => el.id === val)
-      let roomLastUpdate = room.updated_at
-      let usersReadingProgress = room.users.find(el => el.id === this.user.id).pivot.updated_at
-      // update the reading progress of this user for this room
-      if (this.$moment(usersReadingProgress).isBefore(this.$moment(roomLastUpdate))) {
-        // this.$store.dispatch('setReadingProgress', val)
       }
     },
 
@@ -181,10 +157,6 @@ export default {
   },
 
   methods: {
-    setActiveRoom (val) {
-      this.activeRoom = val
-    },
-
     setPageTitle () {
       let windowTitle = '(idle)'
       if (this.onlineUsers.length > 1) {
@@ -195,10 +167,7 @@ export default {
         else
           windowTitle = ' -' + (this.onlineUsers.length-1) + ' users online'
       }
-      // show name of open chat room, if any
-      if (this.activeRoom) {
-        windowTitle = this.rooms.find(el => el.id === this.activeRoom).name
-      }
+
       let newMsgCount = this.newMessagesArrived.length
       // if there are new messages, show name of first chat containing new messages
       if (newMsgCount) {

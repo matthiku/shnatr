@@ -2,10 +2,16 @@
  * Show individual Room
  */
 <template>
-  <div class="card">
+  <div class="card shadow-sm">
+
+    <RoomHeader
+        :room="room"
+        class="card-header mb-1 mb-sm-2 every-chatrooms-card"
+      />
+
     <div class="card-body chat-room-body p-0 p-sm-1 p-md-2 p-lg-3 p-xl-4">
 
-      <ChatLog v-if="room" :room="room"/>
+      <ChatLog :room="room"/>
 
     </div>
   </div>
@@ -22,29 +28,35 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import RoomHeader from './components/Header'
 import ChatLog from './components/Log'
 
 export default {
   props: ['room_id'],
 
   components: {
-    ChatLog
+    ChatLog,
+    RoomHeader
   },
 
   data () {
     return {
-      room: null
+      room: {}
     }
   },
 
   created () {
+    if (this.room_id) {
+      this.room = this.$store.getters["rooms/room"](this.room_id)
+      return
+    }
     // if no room number was provided, use the newest room
     if (!this.room_id && this.latestRoom) {
       this.room = this.$store.getters["rooms/room"](this.latestRoom.id)
+      return
     }
-    if (this.room_id) {
-      this.room = this.$store.getters["rooms/room"](this.room_id)
-    }
+    // no active room found, return to all rooms
+    this.$router.push({name: 'chat.rooms'})
   },
 
   computed: mapGetters({
