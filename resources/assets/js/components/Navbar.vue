@@ -60,7 +60,7 @@
 
         <!-- language selection dropdown menu only on home page! -->
         <ul class="navbar-nav"
-           :class="{'d-none': $route.name !== 'home'}">
+           :class="{'d-none': $route.name !== 'home' && user}">
           <locale-dropdown/>
         </ul>
 
@@ -69,7 +69,8 @@
           <!-- Authenticated -->
           <li v-if="user" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark"
-               href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                href="#" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
               <img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
               {{ user.name }}
             </a>
@@ -77,6 +78,11 @@
               <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
                 <fa icon="cog" fixed-width/>
                 {{ $t('settings') }}
+              </router-link>
+
+              <router-link :to="{ name: 'settings.password' }" class="dropdown-item pl-3">
+                <fa icon="cog" fixed-width/>
+                {{ $t('password') }}
               </router-link>
 
               <a href="#" class="dropdown-item pl-3" @click.prevent="installApp" v-show="showInstallPrompt">
