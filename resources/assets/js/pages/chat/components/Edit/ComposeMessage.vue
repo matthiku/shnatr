@@ -105,6 +105,7 @@ export default {
       // remove the action
       this.$store.commit('setAction', null)
     }
+    this.$refs.messageInput.focus()
   },
 
   methods: {
