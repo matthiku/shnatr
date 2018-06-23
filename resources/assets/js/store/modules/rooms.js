@@ -12,7 +12,9 @@ export const getters = {
   rooms: state => state.rooms,
 
   room: state => (id) => {
-    return state.rooms.find(room => room.id === parseInt(id))
+    if (state.rooms) {
+      return state.rooms.find(room => room.id === parseInt(id))
+    }
   },
 
   latestRoom: state => {

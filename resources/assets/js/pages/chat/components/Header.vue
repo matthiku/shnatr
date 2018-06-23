@@ -2,7 +2,9 @@
  * Show Room Header
  */
 <template>
-  <div class="card-header px-1 pt-1 pb-1 p-sm-1 p-md-2 my-0" :id="'heading-'+room.id">
+  <div v-if="room" 
+      class="card-header px-1 pt-1 pb-1 p-sm-1 p-md-2 my-0"
+      :id="'heading-'+room.id">
 
     <div @click="toggleRoom" 
         class="d-flex justify-content-between mb-0 w-100 p-0 cursor-pointer chatroom-header">

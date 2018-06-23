@@ -1,5 +1,8 @@
 <template>
-  <div class="card shadow-sm" ref="scrollContainer">
+  <div v-if="room" 
+      class="card shadow-sm"
+      ref="scrollContainer"
+    >
     <div class="card-body p-0 p-sm-1 p-md-2 chat-room-body scroll-container">
 
       <ShowMessage

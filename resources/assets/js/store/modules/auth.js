@@ -107,12 +107,13 @@ export const actions = {
   },
 
   async logout ({ commit, rootState }) {
+    rootState.rooms.rooms = null
+    console.log('rooms cleared')
     try {
       await axios.post('/api/logout')
     } catch (e) { }
 
     commit(types.LOGOUT)
-    rootState.rooms.rooms = null
   },
 
   async fetchOauthUrl (ctx, { provider }) {

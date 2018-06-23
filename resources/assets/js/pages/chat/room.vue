@@ -4,11 +4,11 @@
 <template>
   <div class="card shadow-sm">
 
-    <RoomHeader :room="room"/>
+    <RoomHeader :room="activeRoom"/>
 
     <div class="card-body p-0 p-sm-1 p-md-2">
 
-      <ChatLog :room="room"/>
+      <ChatLog :room="activeRoom"/>
 
     </div>
   </div>
@@ -30,34 +30,28 @@ export default {
     RoomHeader
   },
 
-  data () {
-    return {
-      room: {}
-    }
-  },
-
   metaInfo () {
     return { title: this.pageTitle }
   },
 
-  created () {
-    if (this.room_id) {
-      this.room = this.$store.getters["rooms/room"](this.room_id)
-      return
-    }
-    // if no room number was provided, use the newest room
-    if (!this.room_id && this.latestRoom) {
-      this.room = this.$store.getters["rooms/room"](this.latestRoom.id)
-      return
-    }
-    // no active room found, return to all rooms
-    this.$router.push({name: 'chat.rooms'})
-  },
-
   computed: {
-    pageTitle () {
-      return this.room.name
+    activeRoom () {
+      if (this.room_id) {
+        return this.room = this.$store.getters["rooms/room"](this.room_id)
+      }
+      // if no room number was provided, use the newest room
+      if (!this.room_id && this.latestRoom) {
+        return this.room = this.$store.getters["rooms/room"](this.latestRoom.id)
+      }
+      // no active room found, return to all rooms
+      this.$router.push({name: 'chat.rooms'})
+      return null      
     },
+
+    pageTitle () {
+      return this.room ? this.room.name : '@'
+    },
+
     ...mapGetters({
       latestRoom: 'rooms/latestRoom'
     })
