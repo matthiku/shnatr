@@ -68,14 +68,20 @@ export default {
   },
 
   mounted () {
-    // TODO: we need to recalculate that on screen change or orientation change!
-    // Calculate max possible height of message container to allow for vertical scrolling
-    let elemPosTop = this.$refs.scrollContainer.getBoundingClientRect().top 
-    let maxHeight = window.innerHeight - elemPosTop
-    this.$refs.scrollContainer.style.height = `${maxHeight}px`
+    let vm = this
+    window.addEventListener('resize', function() {
+      vm.calculateRoomHeight()
+    });
+    this.calculateRoomHeight() // do it once initially
   },
 
   methods: {
+    calculateRoomHeight () {
+      // Calculate max possible height of message container to allow for vertical scrolling
+      let elemPosTop = this.$refs.scrollContainer.getBoundingClientRect().top 
+      let maxHeight = window.innerHeight - elemPosTop - 10
+      this.$refs.scrollContainer.style.height = `${maxHeight}px`
+    },
     closeAllChats () {
       this.$emit('close-all-chats')
     }    

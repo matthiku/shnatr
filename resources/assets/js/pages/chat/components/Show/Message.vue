@@ -7,7 +7,7 @@
         :index="index"
         :room="room"
         :message="message"
-      ></ShowReadingProgress>
+      />
 
     <div :class="{
           'text-right' : message.user_id === user.id,
@@ -16,7 +16,7 @@
       >
 
       <!-- show the actual message -->
-      <span class="show-message border border-light rounded shadow mb-0 p-1"
+      <span class="sprechblase sprechblase-shadow mb-0 p-1"
         :class="[deleted ? 'text-white bg-dark' : message.user_id === user.id ? 'bg-grey' : 'bg-white']">
 
         <span v-if="!deleting">
@@ -66,7 +66,7 @@
 
       <!-- show message date and time -->
       <small v-if="showUsername || showMessageDate"
-          class="mx-3"
+          class="mx-4"
           :title="$moment(message.updated_at).format('LLLL')"
         >
         <br>
@@ -90,7 +90,7 @@
         :index="index"
         :room="room"
         :message="message"
-      ></ShowReadingProgress>
+      />
 
   </span>
 </template>
@@ -116,8 +116,76 @@
 .delete-message {
   display: none;
 }
-.show-message:hover .delete-message {
+.sprechblase {
+  display: inline-block;
+  min-width: 50px;
+  padding: 1rem;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  position: relative;
+  border: 2px solid #c2e1f5;
+}
+.sprechblase:after, .sprechblase:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+/* .sprechblase:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-top-color: #88b7d5; 
+  border-width: 10px;
+  margin-left: -10px;
+}*/
+.sprechblase:before {
+  border-color: rgba(194, 225, 245, 0);
+  border-top-color: #c2e1f5;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.sprechblase7 {
+  display: inline-block;
+  min-width: 190px;
+  position: relative;
+  padding: 1rem;
+  border: 2px solid #2651A6;
+  margin:0 auto;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  background: #fff;
+}
+.sprechblase7:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 30px;
+  top: 100%;
+  border: 10px solid;
+  border-color: #2651A6 transparent transparent #2651A6;
+}
+.sprechblase7:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 34px;
+  top: 100%;
+  border: 5px solid;
+  border-color: #ffffff transparent transparent #ffffff;
+}
+.sprechblase:hover .delete-message {
   display: inline;
+}
+.sprechblase-shadow {
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3) !important;
 }
 </style>
 
@@ -173,7 +241,7 @@ export default {
     },
     showUsername () {
       if (!this.nextMessage) return true
-      return this.message.user_id !== this.nextMessage.user_id
+      return this.message.user_id !== this.nextMessage.user_id && this.message.user_id !== this.user.id
     },
     ...mapGetters({
       user: 'auth/user',
