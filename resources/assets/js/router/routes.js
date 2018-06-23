@@ -10,6 +10,7 @@ const Home = () => import('~/pages/home').then(m => m.default || m)
 const Chat = () => import('~/pages/chat/index').then(m => m.default || m)
 const ChatUsers = () => import('~/pages/chat/users').then(m => m.default || m)
 const ChatRooms = () => import('~/pages/chat/rooms').then(m => m.default || m)
+const ChatRoom = () => import('~/pages/chat/room').then(m => m.default || m)
 
 const Settings = () => import('~/pages/settings/index').then(m => m.default || m)
 const SettingsProfile = () => import('~/pages/settings/profile').then(m => m.default || m)
@@ -29,8 +30,9 @@ export default [
     component: Chat,
     children: [
       { path: '', redirect: { name: 'chat.rooms' } },
+      { path: 'users', name: 'chat.users', component: ChatUsers },
       { path: 'rooms', name: 'chat.rooms', component: ChatRooms },
-      { path: 'users', name: 'chat.users', component: ChatUsers }
+      { path: 'room/:room_id?', name: 'chat.room', component: ChatRoom, props: true }
     ] },
 
   { path: '/settings',

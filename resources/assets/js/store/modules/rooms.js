@@ -9,7 +9,18 @@ export const state = {
 
 // getters
 export const getters = {
-  rooms: state => state.rooms
+  rooms: state => state.rooms,
+
+  room: state => (id) => {
+    return state.rooms.find(room => room.id === parseInt(id))
+  },
+
+  latestRoom: state => {
+    if (state.rooms) {
+      let roomsSorted = state.rooms.sort((a, b) => a.updated_at < b.updated_at)
+      return roomsSorted[0]
+    }
+  }
 }
 
 // mutations
@@ -30,10 +41,6 @@ export const mutations = {
   clearRoomFromNewMessagesArrived (state, payload) {
     state.newMessagesArrived = state.newMessagesArrived
       .filter(el => el.room_id !== payload)
-  },
-
-  [types.LOGOUT] (state) {
-    state.rooms = null
   }
 }
 

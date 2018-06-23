@@ -6,7 +6,7 @@
           <li v-for="tab in tabs" :key="tab.route" class="nav-item">
             <router-link :to="{ name: tab.route }" class="nav-link" active-class="active">
               <fa :icon="tab.icon" fixed-width/>
-              <span class="d-none d-md-inline" v-html="tab.name"></span>
+              <span v-html="tab.name"></span>
             </router-link>
           </li>
         </ul>
@@ -37,6 +37,11 @@ export default {
           icon: 'comments',
           name: this.$t('rooms'),
           route: 'chat.rooms'
+        },
+        {
+          icon: 'comment',
+          name: this.$t('room'),
+          route: 'chat.room'
         }
       ]
     }

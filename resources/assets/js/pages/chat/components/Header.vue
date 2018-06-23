@@ -1,24 +1,20 @@
 /**
- * Show individual Room
+ * Show Room Header
  */
 <template>
   <span>              
     <!-- chatRoom header
       -->
     <div class="card-header px-1 pt-1 pb-1 p-sm-1 p-md-2 my-0" :id="'heading-'+room.id">
-      <div class="d-flex justify-content-between mb-0 w-100 p-0 cursor-pointer"
-          :class="[room.id === activeRoom ? '' : 'chatroom-header']"
-          @click="hideOtherRooms(room.id)"
-          aria-expanded="true"
-          :aria-controls="'#collapse-'+room.id"
-          data-toggle="collapse"
-          :data-target="'#collapse-'+room.id"
-        >
+
+      <div @click="openRoom" 
+          class="d-flex justify-content-between mb-0 w-100 p-0 cursor-pointer chatroom-header">
+
           <!-- edit properties and show room name -->
           <span class="room-props-and-name">
             <fa icon="cog" fixed-width
                 title="room settings dialog"
-                v-if="room.id !== 0 && room.id !== activeRoom"
+                v-if="room.id !== 0"
                 @click.stop="editRoom(room)"
                 data-toggle="modal" data-target="#chatRoomProperties"
               />
@@ -28,9 +24,10 @@
           </span>
 
           <!-- show room members inline on wider screens -->
-          <ShowRoomMembers class="d-none d-md-inline"
+          <ShowRoomMembers
+              class="d-none d-md-inline"
               :room="room" :user="user"
-            ></ShowRoomMembers>
+            />
 
         <!-- show messages counter -->
         <span class="nowrap overflow-hidden">
@@ -41,39 +38,12 @@
         </span>
       </div>
 
-      <!-- show room members on extra line on smaller screens -->
-      <ShowRoomMembers class="d-md-none d-block d-flex flex-nowrap justify-content-center overflow-hidden"
+      <!-- on smaller screens show room members on extra line -->
+      <ShowRoomMembers
+          class="d-md-none d-block d-flex flex-nowrap justify-content-center overflow-hidden"
           :room="room" :user="user"
-        ></ShowRoomMembers>
+        />
 
-    </div>
-
-
-    <!-- show the actual chat content (the messages) 
-      -->
-    <div :id="'collapse-'+room.id" 
-        :aria-labelledby="'heading-'+room.id"
-        class="collapse"
-        :class="[rooms.length===1 || activeRoom === room.id ? 'show' : '']"
-        data-parent="#chatrooms">
-
-      <div 
-          @keyup.esc="closeAllChats"
-          tabindex="-1"
-          class="card-body chat-room-body p-0 p-sm-1 p-md-2 p-lg-3 p-xl-4">
-
-        <ChatLog 
-            v-if="room.id !== 0"
-            @close-all-chats="closeAllChats"
-            :room="room">
-        </ChatLog>
-
-        <div v-else
-            class="text-center"
-          ><button class="btn btn-sm btn-outline-primary" @click="delayedCleanUp">OK</button>
-        </div>
-
-      </div>
     </div>
   </span>  
 </template>
@@ -87,10 +57,6 @@
 .chatroom-header:hover {
   opacity: 1;
   font-size: inherit;
-}
-.chat-room-body {
-  background-image: url("/static/paper.gif");
-  background-repeat: repeat;  
 }
 .room-props-and-name {
   text-overflow: ellipsis;
@@ -109,15 +75,13 @@
 
 
 <script>
-import ChatLog from './Log'
 import ShowRoomMembers from './Show/RoomMembers'
 import { mapGetters } from 'vuex'
 
 export default {
-  props: ['room', 'activeRoom'],
+  props: ['room'],
 
   components: {
-    ChatLog,
     ShowRoomMembers
   },
 
@@ -175,24 +139,8 @@ export default {
       }, 9000);
     },
 
-    hideOtherRooms (roomId) {
-      let elem = document.getElementById('collapse-'+roomId)
-      // are we closing or opening this room?
-      if (elem.classList.contains('show')) {
-        this.$emit('set-active-room', null) // all rooms will be closed
-      } else {
-        this.$emit('set-active-room', roomId) // all but the current room will be closed
-        if (roomId === 0) return
-
-        this.$store.commit('rooms/cleanUpRooms')
-        this.$emit('user-read-all-messages', roomId)
-        // make sure the input field is visible (scroll to bottom of the messages)
-        setTimeout(() => {          
-          elem = document.getElementById('message-room-id-' + roomId)
-          elem.focus()
-          elem.scrollIntoView({behavior: 'smooth'})
-        }, 800);
-      }
+    openRoom () {
+      this.$router.push({ name: 'chat.room', params: {room_id: this.room.id}})
     },
 
     editRoom (room) {

@@ -3,9 +3,9 @@
 
     <div class="card-body p-1 p-sm-2 p-md-3">
 
-      <div class="accordion shadow" id="chatrooms">
+      <div class="shadow" id="chatrooms">
 
-        <ChatRoom
+        <Header
             v-for="(room, index) in rooms"
             v-if="activeRoom === null || activeRoom === room.id"
             :key="index"
@@ -13,7 +13,7 @@
             :activeRoom="activeRoom"
             @set-active-room="setActiveRoom"
             class="card mb-1 mb-sm-2 every-chatrooms-card"
-          ></ChatRoom>
+          ></Header>
 
       </div>
     </div>
@@ -26,7 +26,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ChatRoom from './components/Room'
+import Header from './components/Header'
 import EditRoomProperties from "./components/Edit/RoomProperties";
 import swal from 'sweetalert2'
 
@@ -34,7 +34,7 @@ export default {
   middleware: 'auth',
 
   components: {
-    ChatRoom,
+    Header,
     EditRoomProperties
   },
 
