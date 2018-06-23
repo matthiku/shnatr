@@ -25,6 +25,14 @@
   </div>
 </template>
 
+
+<style>
+.chat-card .card-body {
+  padding: 0;
+}
+</style>
+
+
 <script>
 import EditRoomProperties from "./components/Edit/RoomProperties";
 
@@ -56,9 +64,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.chat-card .card-body {
-  padding: 0;
-}
-</style>

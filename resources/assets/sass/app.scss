@@ -7,6 +7,10 @@
 @import 'elements/buttons';
 @import 'elements/transitions';
 
+body {
+  overflow-y: hidden;
+  height: 100%;
+}
 .cursor-pointer {
   cursor: pointer;
 }

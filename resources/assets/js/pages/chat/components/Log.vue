@@ -1,6 +1,6 @@
 <template>
-  <div class="card shadow-sm">
-    <div class="card-body p-0 p-sm-1 p-md-2 chat-room-body">
+  <div class="card shadow-sm" ref="scrollContainer">
+    <div class="card-body p-0 p-sm-1 p-md-2 chat-room-body scroll-container">
 
       <ShowMessage
           v-for="(message, index) in room.messages"
@@ -10,14 +10,12 @@
           :room="room"
         />
 
-
       <div
           v-if="!room.messages || (room.messages && !room.messages.length)"
           class="empty" 
         >
         Chat room empty. Send a message!
       </div>
-
 
       <EditComposeMessage 
           :room="room"
@@ -35,9 +33,18 @@
 
 
 <style>
+.scroll-container {
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll; 
+}
 .chat-room-body {
   background-image: url("/static/paper.gif");
-  background-repeat: repeat;  
+  background-repeat: repeat;
 }
 .empty {
   padding: 1rem;
@@ -52,13 +59,20 @@ import ShowSlideshow from './Show/Slideshow'
 import EditComposeMessage from './Edit/ComposeMessage'
 
 export default {
-
   props: ['room'],
 
   components: {
     ShowMessage,
     ShowSlideshow,
     EditComposeMessage
+  },
+
+  mounted () {
+    // TODO: we need to recalculate that on screen change or orientation change!
+    // Calculate max possible height of message container to allow for vertical scrolling
+    let elemPosTop = this.$refs.scrollContainer.getBoundingClientRect().top 
+    let maxHeight = window.innerHeight - elemPosTop
+    this.$refs.scrollContainer.style.height = `${maxHeight}px`
   },
 
   methods: {
