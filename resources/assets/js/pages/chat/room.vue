@@ -4,26 +4,15 @@
 <template>
   <div class="card shadow-sm">
 
-    <RoomHeader
-        :room="room"
-        class="card-header mb-1 mb-sm-2 every-chatrooms-card"
-      />
+    <RoomHeader :room="room"/>
 
-    <div class="card-body chat-room-body p-0 p-sm-1 p-md-2 p-lg-3 p-xl-4">
+    <div class="card-body p-0 p-sm-1 p-md-2">
 
       <ChatLog :room="room"/>
 
     </div>
   </div>
 </template>
-
-
-<style>
-.chat-room-body {
-  background-image: url("/static/paper.gif");
-  background-repeat: repeat;  
-}
-</style>
 
 
 <script>
@@ -34,6 +23,8 @@ import ChatLog from './components/Log'
 export default {
   props: ['room_id'],
 
+  middleware: 'auth',
+
   components: {
     ChatLog,
     RoomHeader
@@ -43,6 +34,10 @@ export default {
     return {
       room: {}
     }
+  },
+
+  metaInfo () {
+    return { title: this.pageTitle }
   },
 
   created () {
@@ -59,9 +54,13 @@ export default {
     this.$router.push({name: 'chat.rooms'})
   },
 
-  computed: mapGetters({
+  computed: {
+    pageTitle () {
+      return this.room.name
+    },
+    ...mapGetters({
       latestRoom: 'rooms/latestRoom'
     })
-
+  }
 }
 </script>

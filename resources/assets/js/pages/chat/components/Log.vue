@@ -1,39 +1,44 @@
 <template>
-  <div class="chat-log">
+  <div class="card shadow-sm">
+    <div class="card-body p-0 p-sm-1 p-md-2 chat-room-body">
+
+      <ShowMessage
+          v-for="(message, index) in room.messages"
+          :key="index"
+          :index="index"
+          :message="message"
+          :room="room"
+        />
 
 
-    <ShowMessage
-        v-for="(message, index) in room.messages"
-        :key="index"
-        :index="index"
-        :message="message"
-        :room="room"
-      ></ShowMessage>
+      <div
+          v-if="!room.messages || (room.messages && !room.messages.length)"
+          class="empty" 
+        >
+        Chat room empty. Send a message!
+      </div>
 
 
-    <div
-        v-if="!room.messages || (room.messages && !room.messages.length)"
-        class="empty" 
-      >
-      Chat room empty. Send a message!
+      <EditComposeMessage 
+          :room="room"
+          @close-all-chats="closeAllChats"
+        />
+
+
+      <ShowSlideshow
+          :messages="room.messages"
+        />
+
     </div>
-
-
-    <EditComposeMessage 
-        :room="room"
-        @close-all-chats="closeAllChats"
-      ></EditComposeMessage>
-
-
-    <ShowSlideshow
-        :messages="room.messages"
-      ></ShowSlideshow>
-
-  </div>  
+  </div>
 </template>
 
 
 <style>
+.chat-room-body {
+  background-image: url("/static/paper.gif");
+  background-repeat: repeat;  
+}
 .empty {
   padding: 1rem;
   text-align: center;
