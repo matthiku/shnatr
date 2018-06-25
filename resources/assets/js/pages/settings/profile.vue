@@ -25,6 +25,7 @@
         <div class="col-md-7">
           <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
           <has-error :form="form" field="email" />
+          <div>email change means account needs be verified again!</div>
         </div>
       </div>
 
@@ -95,8 +96,13 @@ export default {
     async update () {
       const { data } = await this.form.patch('/api/settings/profile')
 
-      // TODO: if email was changed, account now is unverified
+      // save the new account data
       this.$store.dispatch('auth/updateUser', { user: data })
+
+      // if email was changed, account now is unverified
+      if (data.verifyToken) {
+        this.$router.push({name: 'home'}) // the home page will inform the user...
+      }
     }
   }
 }

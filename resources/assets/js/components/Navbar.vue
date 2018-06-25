@@ -9,7 +9,7 @@
 
       <!-- main app menu -->
       <ul class="navbar-nav mr-auto">
-        <li v-if="!user" class="nav-item"
+        <li v-if="!user || !verified" class="nav-item mr-2"
             v-html="$t($route.name)"
           ></li>
         <li v-else class="nav-item dropdown">
@@ -24,14 +24,12 @@
           <div class="dropdown-menu position-absolute" aria-labelledby="navbarDropdown">
 
             <router-link 
-                v-if="verified"
                 :to="{name: 'chat.users'}" class="dropdown-item">
               <fa icon="users" fixed-width/>
               <span v-html="$t('people')"></span>
             </router-link>
 
             <router-link
-                v-if="verified"
                 :to="{name: 'chat.rooms'}" class="dropdown-item">
               <fa icon="comments" fixed-width/>
               <span v-html="$t('rooms')"></span>
