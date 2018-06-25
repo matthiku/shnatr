@@ -39,13 +39,17 @@ class VerifyController extends Controller
      */
     public function verifyEmail($token)
     {
-        $user = User::where('verifyToken', $token)
-            ->firstOrFail() // produces an 404 error if it fails
-            ->update(['verifyToken' => null]); // verify the user
+        $user = User::where('verifyToken', $token)->first();
+
+        $status = 'auth.invalid_account_verification';
+        if ($user) {
+            $user->update(['verifyToken' => null]); // verify the user
+            $status = 'auth.account_verified';
+        }
 
         return redirect()
             ->route('home', 'home')
-            ->with('status', 'Account verified');
+            ->with('status', trans($status));
     }
 
 

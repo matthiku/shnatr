@@ -16,4 +16,7 @@ return [
     'failed' => 'Diese Angaben stimmen nicht mit den gespeicherten Daten überein oder die Email-Adresse wurde noch nicht verifiziert.',
     'throttle' => 'Zu viel Anmeldeversuche. Bitte versuche es nochmal in :seconds Sekunden.',
 
+    'account_verified' => 'Konto wurde verifiziert.',
+    'auth.invalid_account_verification' => 'Ungültige Daten oder Konot wurde bereits verifiziert!'
+
 ];

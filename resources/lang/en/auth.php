@@ -16,4 +16,7 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    'account_verified' => 'Account verified',
+    'auth.invalid_account_verification' => 'Invalid account data or account already verified!'
+
 ];
