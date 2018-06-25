@@ -15,49 +15,51 @@ use Illuminate\Http\Request;
 
 
 /**
- * Auth Routes for Guests
- *
+ * Auth Routes for Guests *
  */
-Route::group(['middleware' => 'guest:api'], function () {
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('register', 'Auth\RegisterController@register');
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Route::group(
+    ['middleware' => 'guest:api'], function () {
+        Route::post('login', 'Auth\LoginController@login');
+        Route::post('register', 'Auth\RegisterController@register');
+        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+        Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-    Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
-    Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
-});
+        Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
+        Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
+    }
+);
 
 
 /**
- * Auth Routes for Authenticated Users
- *
+ * Auth Routes for Authenticated Users *
  */
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('logout', 'Auth\LoginController@logout');
+Route::group(
+    ['middleware' => 'auth:api'], function () {
+        Route::post('logout', 'Auth\LoginController@logout');
 
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+        Route::get(
+            '/user', function (Request $request) {
+                return $request->user();
+            }
+        );
 
-    Route::patch('settings/profile', 'Settings\ProfileController@update');
-    Route::patch('settings/password', 'Settings\PasswordController@update');
+        Route::patch('settings/profile', 'Settings\ProfileController@update');
+        Route::patch('settings/password', 'Settings\PasswordController@update');
 
-    // send email address verification link again
-    Route::get(
-        'sendverifyemail', 'Auth\VerifyController@sendVerifyEmail'
-    );
+        // send email address verification link again
+        Route::get('sendverifyemail', 'Auth\VerifyController@sendVerifyEmail');
 
-    // get a simple list of all users
-    Route::get('users', 'Rooms\RoomActivitiesController@userList');
-});
+        // get a simple list of all users
+        Route::get('users', 'Rooms\RoomActivitiesController@userList')
+            ->middleware('checkVerified');
+    }
+);
 
 
 /**
  * Routes for Chat Rooms and Messages
- *
  */
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => ['auth:api', 'checkVerified']], function () {
 
     // create a new chat room
     Route::post('rooms', 'Rooms\CreateRoomController@store');

@@ -6,6 +6,10 @@
         {{ $t('you_are_logged_in') }}
       </p>
 
+    </div>
+
+    <div v-if="user && !user.verifyToken">
+
       <router-link
           :to="{name: 'chat.users'}"
           class="btn btn-sm btn-primary"

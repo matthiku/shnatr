@@ -22,6 +22,13 @@ class ProfileController extends Controller
             'email' => 'required|email|unique:users,email,'.$user->id,
         ]);
 
+        // if email was changed, account will be downgraded to unconfirmed
+        if ($user->email !== $request->email) {
+            $user->verifyToken = str_random(25);
+            $user->save();
+            $user->sendVerificationEmail();
+        }
+
         return tap($user)->update($request->only('name', 'email'));
     }
 }

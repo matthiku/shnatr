@@ -95,6 +95,7 @@ export default {
     async update () {
       const { data } = await this.form.patch('/api/settings/profile')
 
+      // TODO: if email was changed, account now is unverified
       this.$store.dispatch('auth/updateUser', { user: data })
     }
   }

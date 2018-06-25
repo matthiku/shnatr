@@ -16,7 +16,8 @@ export const getters = {
   users: state => state.users,
   verifyEmailSent: state => state.verifyEmailSent,
   token: state => state.token,
-  check: state => state.user !== null
+  check: state => state.user !== null,
+  checkVerified: state => state.user && state.user.verifyToken === null
 }
 
 // mutations

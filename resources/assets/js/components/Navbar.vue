@@ -23,12 +23,16 @@
           </a>
           <div class="dropdown-menu position-absolute" aria-labelledby="navbarDropdown">
 
-            <router-link :to="{name: 'chat.users'}" class="dropdown-item">
+            <router-link 
+                v-if="verified"
+                :to="{name: 'chat.users'}" class="dropdown-item">
               <fa icon="users" fixed-width/>
               <span v-html="$t('people')"></span>
             </router-link>
 
-            <router-link :to="{name: 'chat.rooms'}" class="dropdown-item">
+            <router-link
+                v-if="verified"
+                :to="{name: 'chat.rooms'}" class="dropdown-item">
               <fa icon="comments" fixed-width/>
               <span v-html="$t('rooms')"></span>
             </router-link>
@@ -133,6 +137,7 @@ export default {
 
   computed: mapGetters({
     user: 'auth/user',
+    verified: 'auth/checkVerified',
     deferredPrompt: 'shared/deferredPrompt'
   }),
 
