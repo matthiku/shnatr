@@ -3,6 +3,7 @@ import store from '~/store'
 import router from '~/router'
 import i18n from '~/plugins/i18n'
 import App from '~/components/App'
+import Echo from 'laravel-echo'
 
 import moment from 'moment-timezone'
 
@@ -26,8 +27,27 @@ new Vue({
 })
 /* jshint ignore:end */
 
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows us to easily build robust real-time web applications.
+ */
+window.Pusher = require('pusher-js')
+
+// Enable pusher logging - don't include this in production!
+window.Pusher.logToConsole = true
+
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: process.env.MIX_PUSHER_APP_KEY,
+  cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+  encrypted: false,
+  authEndpoint: '/broadcasting/auth',
+  disableStats: false
+})
+
 // Try to enable Service Worker TODO: (temporarily disabled!)
-if ('service(remove me!)Worker' in navigator) {
+if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('/sw.js').then(function (registration) {
       // Registration was successful
