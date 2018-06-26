@@ -25,7 +25,7 @@
         <div class="col-md-7">
           <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
           <has-error :form="form" field="email" />
-          <div>email change means account needs be verified again!</div>
+          <small>{{ $t('Note') + ': ' + $t('email_changing') }}</small>
         </div>
       </div>
 
@@ -101,7 +101,9 @@ export default {
 
       // if email was changed, account now is unverified
       if (data.verifyToken) {
-        this.$router.push({name: 'home'}) // the home page will inform the user...
+        setTimeout(() => {
+          this.$router.push({name: 'home'}) // the home page will inform the user...
+        }, 3000);
       }
     }
   }

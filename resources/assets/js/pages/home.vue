@@ -12,15 +12,25 @@
 
       <router-link
           :to="{name: 'chat.users'}"
-          class="btn btn-sm btn-primary"
+          class="btn btn-sm btn-primary mr-2"
         >
+        <fa icon="users" fixed-width/>
         {{ $t('people' ) }}
       </router-link>
 
       <router-link
-          v-html="$t('rooms')"
           :to="{name: 'chat.rooms'}"
-          class="btn btn-sm btn-primary"/>
+          class="btn btn-sm btn-secondary mr-2">
+        <fa icon="comments" fixed-width/>
+        <span v-html="$t('rooms')"></span>
+      </router-link>
+
+      <router-link
+          :to="{name: 'chat.room'}"
+          class="btn btn-sm btn-info">
+        <fa icon="comment" fixed-width/>
+        {{ $t('last_room') }}
+      </router-link>
 
     </div>
 

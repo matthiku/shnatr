@@ -53,7 +53,10 @@ $polyfills = [
 
 <body>
   <div id="app">
-    first glimpse - some dummy content that will be delivered while the app is loading!
+    <p>
+      first glimpse - some dummy content that will be delivered while the app is loading!
+    </p>
+    <h2>This will soon be replaced by some NUXT content</h2>
   </div>
 
   {{-- Global configuration object --}}

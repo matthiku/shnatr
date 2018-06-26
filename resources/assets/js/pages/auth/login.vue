@@ -127,8 +127,8 @@ export default {
       // Fetch the user.
       await this.$store.dispatch('auth/fetchUser')
 
-      // Redirect home.
-      this.$router.push({ name: 'home' })
+      // Redirect to last used room for verified users
+      this.$router.push({ name: 'chat.room' })
     }
   }
 }
