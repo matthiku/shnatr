@@ -12,7 +12,7 @@
 
       <router-link
           :to="{name: 'chat.users'}"
-          class="btn btn-sm btn-primary mr-2"
+          class="btn btn-sm btn-primary mr-2 mb-2"
         >
         <fa icon="users" fixed-width/>
         {{ $t('people' ) }}
