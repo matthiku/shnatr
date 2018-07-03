@@ -35,10 +35,16 @@ workbox.routing.registerRoute(
 )
 // workbox.routing.registerRoute(
 //   /.*\.(?:png|jpg|jpeg|svg|gif)/g,
-//   workbox.strategies.CacheFirst({
+//   workbox.strategies.cacheFirst({
 //     cacheName: 'image-cache'
 //   })
 // )
+workbox.routing.registerRoute(
+  new RegExp('/static/'),
+  workbox.strategies.cacheFirst({
+    cacheName: 'image-cache'
+  })
+)
 
 /**
  * Dynamic caching of the Main Pages
@@ -48,6 +54,9 @@ workbox.routing.registerRoute(
 const mainPaths = [
   '/',
   '/home',
+  '/chat',
+  '/chat/users',
+  '/chat/rooms',
   '/login',
   '/register'
 ]

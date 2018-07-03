@@ -3,7 +3,7 @@
 
     <div class="mb-3">
       <p>
-        {{ $t('you_are_logged_in') }}
+        {{ $t('hello') }}, {{ user.name }}!
       </p>
 
     </div>

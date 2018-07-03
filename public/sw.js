@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.d4e6fc9540d5942ef3ad289a73e90f0c.js", "https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
+importScripts("/precache-manifest.aa22c0c8d2a8776e2055a981266c962a.js", "https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 
 /* global workbox */
 /* eslint no-undef: "error" */
@@ -37,10 +37,16 @@ workbox.routing.registerRoute(
 )
 // workbox.routing.registerRoute(
 //   /.*\.(?:png|jpg|jpeg|svg|gif)/g,
-//   workbox.strategies.CacheFirst({
+//   workbox.strategies.cacheFirst({
 //     cacheName: 'image-cache'
 //   })
 // )
+workbox.routing.registerRoute(
+  new RegExp('/static/'),
+  workbox.strategies.cacheFirst({
+    cacheName: 'image-cache'
+  })
+)
 
 /**
  * Dynamic caching of the Main Pages
@@ -50,6 +56,9 @@ workbox.routing.registerRoute(
 const mainPaths = [
   '/',
   '/home',
+  '/chat',
+  '/chat/users',
+  '/chat/rooms',
   '/login',
   '/register'
 ]

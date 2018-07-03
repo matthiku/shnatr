@@ -34,8 +34,10 @@ new Vue({
  */
 window.Pusher = require('pusher-js')
 
-// Enable pusher logging - don't include this in production!
-window.Pusher.logToConsole = true
+// Enable pusher logging - not in production!
+if (process.env.APP_ENV === 'local') {
+  window.Pusher.logToConsole = true
+}
 
 window.Echo = new Echo({
   broadcaster: 'pusher',
@@ -46,7 +48,7 @@ window.Echo = new Echo({
   disableStats: false
 })
 
-// Try to enable Service Worker TODO: (temporarily disabled!)
+// Try to enable Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('/sw.js').then(function (registration) {

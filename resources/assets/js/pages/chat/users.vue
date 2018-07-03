@@ -62,10 +62,12 @@ export default {
     filteredUsers () {
       if (this.search) {
         return this.users.filter(u => {
-          return u.name.indexOf(this.search) > -1
+          return u.name.indexOf(this.search) > -1 && u.id !== this.user.id
         })
       }
-      return this.users
+      return this.users.filter(u => {
+        return u.id !== this.user.id
+      })
     },
     ...mapGetters({
       user: 'auth/user',

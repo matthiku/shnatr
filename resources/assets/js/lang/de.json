@@ -37,6 +37,7 @@
   "logout": "Abmelden",
   "email": "E-Mail",
   "name": "Name",
+  "hello": "Hallo",
   "remember_me": "Anmeldung merken",
   "you_are_logged_in": "Du bist angemeldet!",
   "account_not_verified": "Deine Email-Adresse muss aber noch bestätigt werden",
