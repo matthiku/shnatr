@@ -3,7 +3,7 @@ import store from '~/store'
 import router from '~/router'
 import i18n from '~/plugins/i18n'
 import App from '~/components/App'
-import Echo from 'laravel-echo'
+// import Echo from 'laravel-echo'
 
 import moment from 'moment-timezone'
 
@@ -32,21 +32,21 @@ new Vue({
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows us to easily build robust real-time web applications.
  */
-window.Pusher = require('pusher-js')
+// window.Pusher = require('pusher-js')
 
-// Enable pusher logging - not in production!
-if (process.env.APP_ENV === 'local') {
-  window.Pusher.logToConsole = true
-}
+// // Enable pusher logging - not in production!
+// if (process.env.APP_ENV === 'local') {
+//   window.Pusher.logToConsole = true
+// }
 
-window.Echo = new Echo({
-  broadcaster: 'pusher',
-  key: process.env.MIX_PUSHER_APP_KEY,
-  cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-  encrypted: false,
-  authEndpoint: '/broadcasting/auth',
-  disableStats: false
-})
+// window.Echo = new Echo({
+//   broadcaster: 'pusher',
+//   key: process.env.MIX_PUSHER_APP_KEY,
+//   cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//   encrypted: false,
+//   authEndpoint: '/broadcasting/auth',
+//   disableStats: false
+// })
 
 // Try to enable Service Worker
 if ('serviceWorker' in navigator) {

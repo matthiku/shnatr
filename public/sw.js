@@ -1,7 +1,9 @@
-importScripts("/precache-manifest.aa22c0c8d2a8776e2055a981266c962a.js", "https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
+importScripts("/precache-manifest.5824966b1e01da61eb66c404199b7828.js", "https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 
 /* global workbox */
 /* eslint no-undef: "error" */
+
+import Echo from 'laravel-echo'
 
 /**
  * CACHING static files
@@ -83,4 +85,25 @@ workbox.routing.registerRoute(
     cacheName: 'api-get-requests'
   })
 )
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows us to easily build robust real-time web applications.
+ */
+window.Pusher = require('pusher-js')
+
+// Enable pusher logging - not in production!
+if (process.env.APP_ENV === 'local') {
+  window.Pusher.logToConsole = true
+}
+
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: process.env.MIX_PUSHER_APP_KEY,
+  cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+  encrypted: false,
+  authEndpoint: '/broadcasting/auth',
+  disableStats: false
+})
 
